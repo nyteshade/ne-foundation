@@ -1,0 +1,31 @@
+{
+	"tags": {
+		"allowUnknownTags": true
+	},
+	"source": {
+		"include": [
+			"src"
+		]
+	},
+	"plugins": ["plugins/markdown"],
+	"templates": {
+		"cleverLinks": false,
+		"monospaceLinks": false,
+		"default": {
+			"outputSourceFiles": true
+		}
+	},
+	"opts": {
+		"encoding": "utf8",
+		"destination": "docs",
+		"recurse": true,
+		"template": "node_modules/docdash"
+	},
+	"markdown.hardwrap": true,
+	"markdown": {
+		"hardwrap": true
+	},
+	"metadata": {
+		"title": "@nejs/basic-extensions docs"
+	}
+}
