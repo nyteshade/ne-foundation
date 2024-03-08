@@ -1,3 +1,6 @@
+import { parse } from 'path';
+import { stat } from 'fs';
+
 /**
  * `DatabaseDialect` serves as an abstract base class for different database
  * dialect implementations. It provides a common interface and foundational
@@ -30,11 +33,14 @@ export class DatabaseDialect {
       this.config = config
     }
 
-    this.#context = isObject(this.config?.context) 
+    this.#context = isObject(this.config?.context)
       ? this.config.context
       : {}
 
     this.#events = new EventTarget()
+
+    this.sqlPath = parse(__filename)
+    Object.assign(this.sqlPath, { ext: '', base: this.sqlPath.name })
 
     this.#handleChildLifecycleMethods()
   }
@@ -48,11 +54,11 @@ export class DatabaseDialect {
    * startup procedures. The specifics of what "online" means may vary between
    * different database systems and should be documented by the subclass.
    *
-   * The method is expected to be called when the database should get ready 
-   * to start accepting queries and transactions. It is a critical part of 
-   * the database lifecycle and ensures that the database is properly prepared 
+   * The method is expected to be called when the database should get ready
+   * to start accepting queries and transactions. It is a critical part of
+   * the database lifecycle and ensures that the database is properly prepared
    * for use.
-   * 
+   *
    * @async
    */
   async online() {}
@@ -86,7 +92,7 @@ export class DatabaseDialect {
    * shutdown procedures. The specifics of what "offline" means may vary
    * between different database systems and should be documented by the
    * subclass.
-   * 
+   *
    * @async
    */
   async offline() {}
@@ -124,19 +130,19 @@ export class DatabaseDialect {
    *
    * Subclasses should override this method with their specific initialization
    * logic to ensure the database environment is correctly prepared for
-   * subsequent operations. 
+   * subsequent operations.
    *
    * @async
    * @fires DatabaseDialect#EVT_DB_INIT
    * @note subclasses need to call `await super.initialize()` as the base
    * class implementation fires lifecycle events.
-   * @param {object} handle this is the type of object returned from 
+   * @param {object} handle this is the type of object returned from
    * {@link DatabaseDialect.getHandle}. It is likely the object that is used
    * to make queries, execute statements and the like.
    * @returns {Promise<void>} A promise that resolves when the initialization
    * process is complete.
    */
-  async initialize(handle) {    
+  async initialize(handle) {
   }
 
   /**
@@ -175,7 +181,7 @@ export class DatabaseDialect {
    * @returns {Promise<DatabaseConnection>} A promise that resolves with the
    * database connection object.
    */
-  async getHandle() {    
+  async getHandle() {
     throw new Error('getHandle method must be implemented by subclasses');
   }
 
@@ -202,18 +208,18 @@ export class DatabaseDialect {
 
   /**
    * Initializes and connects to the database.
-   * 
+   *
    * This method performs the necessary initialization and bootstrap procedures
    * for the database before establishing a connection. It sequentially calls
-   * the `online` and then 'initialize' methods, ensuring that each step is 
-   * completed before proceeding to the next. 
-   * 
+   * the `online` and then 'initialize' methods, ensuring that each step is
+   * completed before proceeding to the next.
+   *
    * This method is particularly useful for setting up the database during
    * application startup, as it encapsulates all the required steps into a
    * single, convenient method call. It should be used when the database
    * connection needs to be established after the database has been properly
    * initialized and bootstrapped.
-   * 
+   *
    * @async
    * @returns {Promise<DatabaseConnection>} A promise that resolves with the
    * database connection object once the database has been initialized,
@@ -271,7 +277,7 @@ export class DatabaseDialect {
       detailData
     );
     const event = new CustomEvent(eventName, { detail: details });
-    
+
     this.#events.dispatchEvent(event);
   }
 
@@ -286,16 +292,16 @@ export class DatabaseDialect {
    */
   get metadata() {
     return null;
-  }  
+  }
 
   /**
    * Registers an event listener for a specified event on the database.
-   * 
+   *
    * This method allows components to react to specific events emitted by the
    * database, such as connection changes or error notifications. The listener
    * function provided will be called whenever the specified event is
    * dispatched.
-   * 
+   *
    * @param {string} eventName - The name of the event to listen for.
    * @param {Function} listener - The callback function to execute when the
    * event is fired. The callback receives an Event object as its first
@@ -347,7 +353,7 @@ export class DatabaseDialect {
     }
 
     return this.constructor.shortName;
-  }  
+  }
 
   /**
    * Merges properties from a source object into a target object.
@@ -387,7 +393,7 @@ export class DatabaseDialect {
    * 'offline', 'initialize', and 'getHandle' in the child class. If any are
    * present, it wraps them with 'before_' and 'after_' hooks, allowing for
    * custom behavior to be executed before and after the lifecycle method.
-   * 
+   *
    * This method is intended to be called internally and should not be invoked
    * directly. It relies on the private #has and #hasGetter methods to determine
    * if the lifecycle methods are defined and to handle property descriptors
@@ -398,7 +404,7 @@ export class DatabaseDialect {
 
     if (this.constructor.name !== DatabaseDialect.name) {
       // Fetch prototypes
-      const rootPrototype = DatabaseDialect.prototype       
+      const rootPrototype = DatabaseDialect.prototype
       const thisPrototype = this.constructor.prototype
 
       const rootHas = this.#has(rootPrototype)
@@ -446,12 +452,12 @@ export class DatabaseDialect {
 
   /**
    * Checks if a given object has a property with an optional type filter.
-   * 
+   *
    * This method is used to determine if the specified object has a property
    * matching the given key and, optionally, if that property is of a specific
    * type. If no key is provided, it returns a function that can be used to
    * check for the existence and type of a property on the object.
-   * 
+   *
    * @param {Object} forObject - The object to check for the presence of the key.
    * @param {string} [optionalKey] - The key to check for on the object. If not
    * provided, a function is returned for checking any key.
@@ -510,7 +516,7 @@ export class DatabaseDialect {
    */
   #hasGetter(descriptor) {
     return (
-      this.#isAccessor(descriptor) && 
+      this.#isAccessor(descriptor) &&
       Reflect.has(descriptor, 'get') &&
       typeof descriptor === 'function'
     )
@@ -518,12 +524,12 @@ export class DatabaseDialect {
 
   /**
    * The short name identifier for the database dialect instance.
-   * 
+   *
    * This private field stores the short name of the dialect, which is retrieved
    * from the static `shortName` property of the constructor. It is used
    * internally to provide a consistent identifier for the dialect across
    * various parts of the system.
-   * 
+   *
    * @private
    * @type {string|symbol}
    */
@@ -541,82 +547,82 @@ export class DatabaseDialect {
    * application, such as configuration files or when dynamically selecting
    * the appropriate database connector based on the dialect.
    *
-   * @returns {string|symbol} The short name identifier for the database 
+   * @returns {string|symbol} The short name identifier for the database
    * dialect.
    */
   static get shortName() { return "databaseDialect" }
- 
+
   /**
    * Static getter for the database error event name.
-   * 
-   * This property can be used to listen for error events emitted by the 
-   * database. It is useful in scenarios where error handling or logging is 
-   * needed when the database encounters an issue. By listening to this event, 
-   * developers can implement custom error handling strategies or trigger 
+   *
+   * This property can be used to listen for error events emitted by the
+   * database. It is useful in scenarios where error handling or logging is
+   * needed when the database encounters an issue. By listening to this event,
+   * developers can implement custom error handling strategies or trigger
    * alerts.
-   * 
+   *
    * @returns {string} The event name for database errors.
    */
   static get EVT_DB_ERROR() { return "database.error"; }
 
   /**
    * Static getter for the database initialization event name.
-   * 
+   *
    * This property can be used to listen for when the database is in the process
    * of initializing. It is useful in scenarios where certain setup routines need
    * to be performed immediately after the database starts its initialization
    * process but before it actually becomes available for operations.
-   * 
+   *
    * @returns {string} The event name for database initialization.
    */
   static get EVT_DB_INIT() { return "database.initialize" }
-  
+
   /**
    * Static getter for the database connection event name.
-   * 
+   *
    * This property can be used to listen for when the database has successfully
    * established a connection. It is useful in scenarios where certain actions
    * need to be performed as soon as the database connection is confirmed to be
    * established and operational.
-   * 
+   *
    * @returns {string} The event name for when the database is connected.
    */
   static get EVT_DB_CONNECT() { return "database.connected" }
 
   /**
    * Static getter for the database online event name.
-   * 
+   *
    * This property is used to listen for the event indicating that the database
    * is online and ready to handle queries. It is particularly useful in
    * scenarios where it's necessary to wait for the database to be fully
    * operational before performing operations that require a live database
    * connection.
-   * 
+   *
    * @returns {string} The event name for when the database is online.
    */
   static get EVT_DB_ONLINE() { return "database.online"; }
-  
+
   /**
    * Static getter for the database offline event name.
-   * 
-   * This property can be used to listen for the event that indicates the 
-   * database has gone offline. It is useful in scenarios where it's necessary 
-   * to detect when the database is no longer available, allowing for 
-   * implementation of appropriate fallback mechanisms or to trigger 
+   *
+   * This property can be used to listen for the event that indicates the
+   * database has gone offline. It is useful in scenarios where it's necessary
+   * to detect when the database is no longer available, allowing for
+   * implementation of appropriate fallback mechanisms or to trigger
    * reconnection logic.
-   * 
+   *
    * @returns {string} The event name for when the database goes offline.
    */
   static get EVT_DB_OFFLINE() { return "database.offline"; }
 
   /**
    * Static getter for the database disconnection event name.
-   * 
+   *
    * This property can be used to listen for when the database has been
    * disconnected, either through a manual disconnection call or due to a
    * connection issue. It is useful in scenarios where cleanup or reconnection
    * logic needs to be executed once the database connection is lost.
-   * 
+   *
    * @returns {string} The event name for when the database is disconnected.
    */
   static get EVT_DB_DISCONNECT() { return "database.disconnected" }
@@ -632,7 +638,7 @@ export class DatabaseDialect {
    * DatabaseDialect class. It is useful for validating dynamic identifiers
    * provided by users or constructed by the application before attempting
    * to execute database operations that involve such identifiers.
-   * 
+   *
    * The default aligns with PostgreSQL, but this should be redefined for
    * every implemented dialect.
    *
@@ -643,12 +649,12 @@ export class DatabaseDialect {
 
   /**
    * Static getter for the SQL WHERE clause joiner string.
-   * 
+   *
    * This property provides a consistent string to be used when joining
    * conditions in a SQL WHERE clause. It is a utility helper that ensures
    * SQL queries are constructed with the correct syntax for separating the
    * WHERE keyword from the conditions that follow.
-   * 
+   *
    * @returns {string} The string " WHERE " to be used in SQL queries.
    */
   static get WHERE_JOINER() { return ' WHERE ' }
@@ -669,7 +675,7 @@ export class DatabaseDialect {
    * An instance of EventTarget which allows the DatabaseDialect to dispatch
    * and listen for custom events. This can be used to handle asynchronous
    * operations and inter-component communication within the database layer.
-   * 
+   *
    * @private
    * @type {EventTarget}
    */
