@@ -1,6 +1,7 @@
-const { Extensions } = require('../../dist/cjs/index.js')
+const { Extensions } = await import('../../dist/cjs/index.js')
+const { describe, expect, test } = await import('vitest')
+
 const AsyncIterable = Extensions.AsyncIterable.class
-const Iterable = Extensions.Iterable.class
 
 describe('AsyncIterable', () => {
   test('should create an async iterable from an array of promises', async () => {

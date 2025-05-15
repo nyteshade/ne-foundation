@@ -1,11 +1,9 @@
 #!/usr/bin/env zsh
 
 inRoot() {
-  test -e tsconfig.base.json &&
-  test -e tsconfig.esm.json &&
-  test -e tsconfig.cjs.json &&
   test -e bin &&
-  test -e src
+  test -e src &&
+  test -e package.json
 }
 
 if ! inRoot; then
@@ -14,14 +12,68 @@ if ! inRoot; then
   exit 1
 fi
 
+# Get version from package.json
+local VERSION=$(node -e "console.log(require('./package.json').version)")
+
 # Make dist if missing
 [[ ! -e dist ]] && mkdir dist
+[[ ! -e dist/cjs ]] && mkdir dist/cjs
+[[ ! -e dist/esm ]] && mkdir dist/esm
+[[ ! -e dist/@nejs ]] && mkdir dist/@nejs
 
 # Build ecmascript modules build
-npx tsc -p tsconfig.esm.json
+npx rolldown src/index.js \
+  -o dist/esm/index.js \
+  -f esm \
+  -p neutral \
+  --exports named \
+  --keep-names \
+  --inline-dynamic-imports \
+  -s inline \
+  -s
+
+npx rolldown src/index.js \
+  -o dist/esm/index.min.js \
+  -f esm \
+  -p neutral \
+  -m \
+  --exports named \
+  --keep-names \
+  --inline-dynamic-imports \
+  -s inline \
+  -s
 
 # Build commonjs build
-npx tsc -p tsconfig.cjs.json
+#npx tsc -p tsconfig.cjs.json
+npx rolldown src/index.js \
+  -o dist/cjs/index.js \
+  -f cjs \
+  -p neutral \
+  --exports named \
+  --keep-names \
+  --no-es-module \
+  --inline-dynamic-imports \
+  -s inline \
+  -s
 
-# Generate unfortunately necessary sub- package.json files
-bin/fixup
+npx rolldown src/index.js \
+  -o dist/cjs/index.min.js \
+  -f cjs \
+  -p neutral \
+  -m \
+  --exports named \
+  --keep-names \
+  --no-es-module \
+  --inline-dynamic-imports \
+  -s inline \
+  -s
+
+# Build iife variant
+npx rolldown src/index.js \
+  -o "dist/@nejs/foundation.bundle.${VERSION}.js" \
+  -p browser \
+  -m \
+  --exports named \
+  --keep-names \
+  --inline-dynamic-imports \
+  -s

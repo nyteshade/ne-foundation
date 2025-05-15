@@ -1,4 +1,6 @@
-const { Patches } = require('../dist/cjs/index.js')
+const { Patches } = await import('../dist/cjs/index.js')
+const { describe, expect, test } = await import('vitest')
+
 const SetPrototypeExtensions = Patches.get(Set.prototype)
 
 describe('SetPrototypeExtensions', () => {

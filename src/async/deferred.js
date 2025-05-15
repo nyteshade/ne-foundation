@@ -231,9 +231,10 @@ export class Deferred extends Promise {
    * object with resolve and reject functions, similar to how a Promise would
    * be initialized.
    *
-   * @returns {DeferredPromise} A DeferredPromise class that extends Deferred.
+   * @typedef {Promise} DeferredPromise
    */
   static get [Symbol.species]() {
+    /** @type {DeferredPromise} */
     return class DeferredPromise extends Deferred {
       /**
        * The constructor for the DeferredPromise class.

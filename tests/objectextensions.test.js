@@ -1,4 +1,6 @@
-const { Patches } = require('../dist/cjs/index.js')
+const { Patches } = await import('../dist/cjs/index.js')
+const { describe, expect, test } = await import('vitest')
+
 const ObjectExtensions = Patches.get(Object)
 
 // Apply and revert the patch in the setup and teardown of the tests

@@ -1,4 +1,6 @@
-const { Extensions } = require('../../dist/cjs/index.js')
+const { Extensions } = await import('../../dist/cjs/index.js')
+const { describe, expect, test } = await import('vitest')
+
 const RefMap = Extensions.RefMap.class
 
 describe('RefMap', () => {

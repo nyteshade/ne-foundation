@@ -1,3 +1,42 @@
+/**
+ * Given any object and a function, or a named property of a function within
+ * the supplied object, a callable proxy is returned. This proxy can reference
+ * any of the values in the supplied object while appearing to be a function
+ * in its own right.
+ *
+ * This can be quite ideal operations need to take place on a given model object
+ * downloaded from an API, for example. If you have a model or JSON object that
+ * contains 'first', 'last' and 'middle' names, and you want to present them
+ * with the last name first, followed by first and middle you can use Callables
+ * to codify this.
+ *
+ * In the following example we have a pure function that references the `this`
+ * in a function to grab the lastName, firstName, and, if present, the middleName
+ * and returns a string.
+ *
+ * This same function is used repeatedly, using the returned JSON payload of each
+ * row, to parse out a name following an expected format.
+ *
+ * @example
+ * // assume this pure function exists someplace
+ * const lastThenFirstThenMiddle = function() {
+ *   let middle = ''
+ *
+ *   if (this.middleName)
+ *     middle = ` ${this.middleName}`
+ *
+ *   return `${this.lastName}, ${this.firstName}${middle}`
+ * }
+ *
+ * let people = []
+ * for await (const model of await getSomePeople()) {
+ *   let parseName = new Callable(model, lastThenFirstThenMiddle)
+ *   people.push(parseName())
+ * }
+ *
+ * console.log(people)
+ * // Might look like ['Doe, Jane', 'Smith, Sally Joanne']
+ */
 export class Callable {
   /**
    * Constructs a `Callable` object that wraps a function or an object's method
@@ -33,29 +72,42 @@ export class Callable {
 
     // Validate that the first parameter is an object
     if (Object(object) !== object) {
-      throw new Error('Supplied object parameter must be an object.');
+      throw new Error("Supplied object parameter must be an object.");
     }
 
     // Determine if the callable is a function or a method of the object
-    if (typeof callablePropertyOrFunction !== 'function') {
+    if (typeof callablePropertyOrFunction !== "function") {
       // Attempt to retrieve the method from the object
       this.targetFunction = object[callablePropertyOrFunction];
       if (!this.targetFunction) {
-        throw new Error('Cannot find function to invoke when object is called.');
+        throw new Error(
+          "Cannot find function to invoke when object is called.",
+        );
       }
     } else {
       // Directly use the provided function
       this.targetFunction = callablePropertyOrFunction;
     }
 
+    // If the target function is a big arrow function, convert it to
+    // a bindable function. Note that big arrow functions will receive
+    // the handler as its first parameter; so account for that.
+    if (!Reflect.has(this.targetFunction, "prototype")) {
+      const arrowFunction = this.targetFunction;
+
+      this.targetFunction = function (...args) {
+        return arrowFunction(this, ...args);
+      };
+    }
+
     // Store the object to bind the callable to
     this.handler = object;
 
     // Create and return a proxy that wraps the callable
-    return new Proxy((...args) => this.targetFunction.apply(
-      this.handler,
-      args
-    ), this.#proxyTraps(this.handler, this.targetFunction));
+    return new Proxy(
+      (...args) => this.targetFunction.apply(this.handler, args),
+      this.#proxyTraps(this.handler, this.targetFunction),
+    );
   }
 
   #proxyTraps(handler, actualCallable) {
@@ -82,6 +134,10 @@ export class Callable {
        * // `value` is the value of `exampleProperty` from `handler`.
        */
       get(_, property, receiver) {
+        if (property === Callable.kHandler) return handler;
+
+        if (property === Callable.kFunction) return actualCallable;
+
         return Reflect.get(handler, property, receiver);
       },
 
@@ -371,8 +427,8 @@ export class Callable {
        */
       ownKeys(target) {
         return Reflect.ownKeys(handler);
-      }
-    }
+      },
+    };
   }
 
   /**
@@ -405,6 +461,44 @@ export class Callable {
    * // expected output: "[object Callable]"
    */
   get [Symbol.toStringTag]() {
-    return this.object?.name ?? this.object?.constructor.name ?? 'Callable';
+    return this.object?.name ?? this.object?.constructor.name ?? "Callable";
+  }
+
+  /**
+   * It may, on occasion, be desirable to get the `thisObj` or context of the
+   * proxied function. The resulting proxy will return this value if the
+   * constant {@link Callable.kHandler} is used as a key.
+   *
+   * @type {symbol}
+   *
+   * @example
+   * const model = { name: 'Jane' }
+   * const sayName = self => console.log(self.name)
+   * const callable = new Callable(model, sayName)
+   *
+   * callable() // prints 'Jane'
+   * callable[Callable.kHandler] === model // true
+   */
+  static get kHandler() {
+    return Symbol.for("callable.handler");
+  }
+
+  /**
+   * It may, on occasion, be desirable to get the function passed when
+   * the callable was created. The resulting proxy will return this value
+   * if the constant {@link Callable.kFunction} is used as a key.
+   *
+   * @type {symbol}
+   *
+   * @example
+   * const model = { name: 'Jane' }
+   * const sayName = self => console.log(self.name)
+   * const callable = new Callable(model, sayName)
+   *
+   * callable() // prints 'Jane'
+   * callable[Callable.kFunction] === sayName // true
+   */
+  static get kFunction() {
+    return Symbol.for("callable.function");
   }
 }

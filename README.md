@@ -55,2107 +55,105 @@ import { FunctionExtensions } from '@nejs/basic-extensions';
 
 #### Table of Contents
 
-*   [FunctionExtensions](#functionextensions)
-    *   [isAsync](#isasync)
-        *   [Parameters](#parameters)
-    *   [isAsyncGenerator](#isasyncgenerator)
-        *   [Parameters](#parameters-1)
-    *   [isBigArrow](#isbigarrow)
-        *   [Parameters](#parameters-2)
-    *   [isBound](#isbound)
-        *   [Parameters](#parameters-3)
-    *   [isClass](#isclass)
-        *   [Parameters](#parameters-4)
-    *   [isFunction](#isfunction)
-        *   [Parameters](#parameters-5)
-    *   [isGenerator](#isgenerator)
-        *   [Parameters](#parameters-6)
-*   [isAsync](#isasync-1)
-*   [isAsyncGenerator](#isasyncgenerator-1)
-*   [isBigArrow](#isbigarrow-1)
-*   [isBound](#isbound-1)
-*   [isClass](#isclass-1)
-*   [isFunction](#isfunction-1)
-*   [isGenerator](#isgenerator-1)
-*   [ObjectExtensions](#objectextensions)
-    *   [isNullDefined](#isnulldefined)
-        *   [Parameters](#parameters-7)
-    *   [hasStringTag](#hasstringtag)
-        *   [Parameters](#parameters-8)
-    *   [getStringTag](#getstringtag)
-        *   [Parameters](#parameters-9)
-    *   [getType](#gettype)
-        *   [Parameters](#parameters-10)
-    *   [isObject](#isobject)
-        *   [Parameters](#parameters-11)
-    *   [isPrimitive](#isprimitive)
-        *   [Parameters](#parameters-12)
-    *   [isValidKey](#isvalidkey)
-        *   [Parameters](#parameters-13)
-    *   [stripTo](#stripto)
-        *   [Parameters](#parameters-14)
-*   [stripTo](#stripto-1)
-    *   [Parameters](#parameters-15)
-*   [getKey](#getkey)
-    *   [Parameters](#parameters-16)
-*   [concat](#concat)
-    *   [Parameters](#parameters-17)
-*   [contains](#contains)
-    *   [Parameters](#parameters-18)
-*   [every](#every)
-    *   [Parameters](#parameters-19)
-*   [find](#find)
-    *   [Parameters](#parameters-20)
-*   [findLast](#findlast)
-    *   [Parameters](#parameters-21)
-*   [length](#length)
-*   [map](#map)
-    *   [Parameters](#parameters-22)
-*   [reduce](#reduce)
-    *   [Parameters](#parameters-23)
-*   [some](#some)
-    *   [Parameters](#parameters-24)
-*   [ReflectExtensions](#reflectextensions)
-    *   [hasAll](#hasall)
-        *   [Parameters](#parameters-25)
-    *   [ownDescriptors](#owndescriptors)
-        *   [Parameters](#parameters-26)
-    *   [hasSome](#hassome)
-        *   [Parameters](#parameters-27)
-    *   [entries](#entries)
-        *   [Parameters](#parameters-28)
-    *   [values](#values)
-        *   [Parameters](#parameters-29)
-*   [StringExtensions](#stringextensions)
-    *   [isString](#isstring)
-        *   [Parameters](#parameters-30)
-*   [SymbolExtensions](#symbolextensions)
-    *   [isSymbol](#issymbol)
-        *   [Parameters](#parameters-31)
-    *   [isRegistered](#isregistered)
-        *   [Parameters](#parameters-32)
-    *   [isNonRegistered](#isnonregistered)
-        *   [Parameters](#parameters-33)
-*   [ArrayPrototypeExtensions](#arrayprototypeextensions)
-    *   [contains](#contains-1)
-        *   [Parameters](#parameters-34)
-    *   [findEntry](#findentry)
-        *   [Parameters](#parameters-35)
-    *   [first](#first)
-    *   [last](#last)
-*   [object](#object)
-*   [constructor](#constructor)
-    *   [Parameters](#parameters-36)
-*   [isAccessor](#isaccessor)
-*   [isData](#isdata)
-*   [isDescriptor](#isdescriptor)
-*   [configurable](#configurable)
-*   [configurable](#configurable-1)
-    *   [Parameters](#parameters-37)
-*   [enumerable](#enumerable)
-*   [enumerable](#enumerable-1)
-    *   [Parameters](#parameters-38)
-*   [writable](#writable)
-*   [writable](#writable-1)
-    *   [Parameters](#parameters-39)
-*   [value](#value)
-*   [value](#value-1)
-    *   [Parameters](#parameters-40)
-*   [get](#get)
-*   [get](#get-1)
-    *   [Parameters](#parameters-41)
-*   [boundGet](#boundget)
-*   [set](#set)
-*   [set](#set-1)
-    *   [Parameters](#parameters-42)
-*   [boundSet](#boundset)
-*   [hasObject](#hasobject)
-*   [object](#object-1)
-*   [object](#object-2)
-    *   [Parameters](#parameters-43)
-*   [for](#for)
-    *   [Parameters](#parameters-44)
-*   [applyTo](#applyto)
-    *   [Parameters](#parameters-45)
-*   [toObject](#toobject)
-    *   [Parameters](#parameters-46)
-*   [toPrimitive](#toprimitive)
-    *   [Parameters](#parameters-47)
-*   [toStringTag](#tostringtag)
-*   [for](#for-1)
-    *   [Parameters](#parameters-48)
-*   [getData](#getdata)
-    *   [Parameters](#parameters-49)
-*   [getAccessor](#getaccessor)
-    *   [Parameters](#parameters-50)
-*   [base](#base)
-    *   [Parameters](#parameters-51)
-*   [accessor](#accessor)
-    *   [Parameters](#parameters-52)
-*   [data](#data)
-    *   [Parameters](#parameters-53)
-*   [isDescriptor](#isdescriptor-1)
-    *   [Parameters](#parameters-54)
-*   [isData](#isdata-1)
-    *   [Parameters](#parameters-55)
-*   [isAccessor](#isaccessor-1)
-    *   [Parameters](#parameters-56)
-*   [flexible](#flexible)
-*   [enigmatic](#enigmatic)
-*   [intrinsic](#intrinsic)
-*   [transparent](#transparent)
-*   [SHARED\_KEYS](#shared_keys)
-*   [ACCESSOR\_KEYS](#accessor_keys)
-*   [DATA\_KEYS](#data_keys)
-*   [maskAs](#maskas)
-    *   [Parameters](#parameters-57)
-*   [maskAsString](#maskasstring)
-    *   [Parameters](#parameters-58)
-*   [maskAsNumber](#maskasnumber)
-    *   [Parameters](#parameters-59)
-*   [GenericMask](#genericmask)
-    *   [Parameters](#parameters-60)
-*   [StringMask](#stringmask)
-    *   [Parameters](#parameters-61)
-*   [NumberMask](#numbermask)
-    *   [Parameters](#parameters-62)
-*   [RefSet](#refset)
-    *   [objectifying](#objectifying)
-        *   [Parameters](#parameters-63)
-    *   [objectifyValues](#objectifyvalues)
-    *   [objectifyValues](#objectifyvalues-1)
-        *   [Parameters](#parameters-64)
-    *   [add](#add)
-        *   [Parameters](#parameters-65)
-    *   [addAll](#addall)
-        *   [Parameters](#parameters-66)
-    *   [clean](#clean)
-    *   [entries](#entries-1)
-        *   [Parameters](#parameters-67)
-    *   [forEach](#foreach)
-        *   [Parameters](#parameters-68)
-    *   [values](#values-1)
-    *   [keys](#keys)
-    *   [has](#has)
-        *   [Parameters](#parameters-69)
-    *   [contains](#contains-2)
-        *   [Parameters](#parameters-70)
-    *   [filter](#filter)
-        *   [Parameters](#parameters-71)
-    *   [find](#find-1)
-        *   [Parameters](#parameters-72)
-    *   [map](#map-1)
-        *   [Parameters](#parameters-73)
-    *   [toStringTag](#tostringtag-1)
-*   [RefMap](#refmap)
-    *   [Parameters](#parameters-74)
-    *   [objectifying](#objectifying-1)
-        *   [Parameters](#parameters-75)
-    *   [asObject](#asobject)
-    *   [objectifyValues](#objectifyvalues-2)
-    *   [objectifyValues](#objectifyvalues-3)
-        *   [Parameters](#parameters-76)
-    *   [get](#get-2)
-        *   [Parameters](#parameters-77)
-    *   [set](#set-2)
-        *   [Parameters](#parameters-78)
-    *   [setAll](#setall)
-        *   [Parameters](#parameters-79)
-    *   [clean](#clean-1)
-    *   [entries](#entries-2)
-        *   [Parameters](#parameters-80)
-    *   [forEach](#foreach-1)
-        *   [Parameters](#parameters-81)
-    *   [values](#values-2)
-    *   [hasValue](#hasvalue)
-        *   [Parameters](#parameters-82)
-    *   [filter](#filter-1)
-        *   [Parameters](#parameters-83)
-    *   [find](#find-2)
-        *   [Parameters](#parameters-84)
-    *   [map](#map-2)
-        *   [Parameters](#parameters-85)
-    *   [iterator](#iterator)
-    *   [toStringTag](#tostringtag-2)
-*   [isValidReference](#isvalidreference)
-    *   [Parameters](#parameters-86)
 *   [Deferred](#deferred)
-    *   [Parameters](#parameters-87)
-    *   [value](#value-2)
+    *   [Parameters](#parameters)
+    *   [value](#value)
     *   [reason](#reason)
     *   [settled](#settled)
     *   [promise](#promise)
     *   [resolve](#resolve)
-        *   [Parameters](#parameters-88)
+        *   [Parameters](#parameters-1)
     *   [reject](#reject)
-        *   [Parameters](#parameters-89)
+        *   [Parameters](#parameters-2)
     *   [species](#species)
 *   [promise](#promise-1)
 *   [reject](#reject-1)
 *   [resolve](#resolve-1)
 *   [settled](#settled-1)
-*   [AsyncIterable](#asynciterable)
-    *   [Parameters](#parameters-90)
-    *   [asyncIterator](#asynciterator)
-    *   [toStringTag](#tostringtag-3)
-    *   [isAsyncIterable](#isasynciterable)
-        *   [Parameters](#parameters-91)
-*   [AsyncIterator](#asynciterator-1)
-    *   [Parameters](#parameters-92)
-    *   [asArray](#asarray)
-    *   [asyncIterable](#asynciterable-1)
-    *   [next](#next)
+*   [secret](#secret)
+    *   [Parameters](#parameters-3)
+*   [secretSet](#secretset)
+*   [init](#init)
+    *   [Parameters](#parameters-4)
+*   [sign](#sign)
+    *   [Parameters](#parameters-5)
+*   [decode](#decode)
+    *   [Parameters](#parameters-6)
+*   [Range](#range)
+    *   [Parameters](#parameters-7)
+    *   [Examples](#examples)
+    *   [inclusive](#inclusive)
+    *   [start](#start)
+    *   [start](#start-1)
+        *   [Parameters](#parameters-8)
+    *   [end](#end)
+    *   [end](#end-1)
+        *   [Parameters](#parameters-9)
+    *   [step](#step)
+    *   [step](#step-1)
+        *   [Parameters](#parameters-10)
+    *   [size](#size)
+    *   [each](#each)
+        *   [Parameters](#parameters-11)
+    *   [includes](#includes)
+        *   [Parameters](#parameters-12)
+    *   [iterator](#iterator)
+*   [Singleton](#singleton)
+    *   [\_\_instanceMap](#__instancemap)
+    *   [shared](#shared)
+    *   [species](#species-1)
+*   [trimLeading](#trimleading)
+    *   [Parameters](#parameters-13)
+    *   [Examples](#examples-1)
+*   [Hasher](#hasher)
+    *   [Parameters](#parameters-14)
+    *   [add](#add)
+        *   [Parameters](#parameters-15)
+    *   [hash](#hash)
     *   [reset](#reset)
-    *   [asyncIterator](#asynciterator-2)
-    *   [toStringTag](#tostringtag-4)
-*   [Iterable](#iterable)
-    *   [Parameters](#parameters-93)
-    *   [iterator](#iterator-1)
-    *   [asArray](#asarray-1)
-    *   [toStringTag](#tostringtag-5)
-    *   [isIterable](#isiterable)
-        *   [Parameters](#parameters-94)
-*   [Iterator](#iterator-2)
-    *   [Parameters](#parameters-95)
-    *   [asArray](#asarray-2)
-    *   [iterable](#iterable-1)
-    *   [next](#next-1)
-    *   [reset](#reset-1)
-    *   [iterator](#iterator-3)
-    *   [toStringTag](#tostringtag-6)
-*   [mapEach](#mapeach)
-
-### FunctionExtensions
-
-The `FunctionExtensions` class is a patch applied to the built-in JavaScript
-`Function` constructor. It extends `Function` with additional utility methods
-for determining the specific type or nature of function-like objects. These
-methods allow developers to distinguish between classes, regular functions,
-async functions, and arrow functions in a more intuitive and straightforward
-manner. This class is part of the `@nejs/extension` library and enhances the
-capabilities of function handling and introspection in JavaScript.
-
-#### isAsync
-
-Determines if a given value is an asynchronous function. It checks if the
-value is an instance of `Function` and if its string representation
-includes the keyword 'Async'. This method is particularly useful for
-identifying async functions.
-
-##### Parameters
-
-*   `value` **any** The value to be checked.
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Returns `true` if the value is an async function,
-otherwise `false`.
-
-#### isAsyncGenerator
-
-The function checks if a given value is an async generator function
-
-##### Parameters
-
-*   `value` **any** The `value` parameter is the value that we want to
-    check if it is a generator function.
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** `true` if the value is an instance of a function and
-its string tag is 'AsyncGeneratorFunction', otherwise it returns `false`.
-
-#### isBigArrow
-
-Checks if a given value is an arrow function. It verifies if the value is
-an instance of `Function`, if its string representation includes the '=>'
-symbol, and if it lacks a prototype, which is a characteristic of arrow
-functions in JavaScript.
-
-##### Parameters
-
-*   `value` **any** The value to be checked.
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Returns `true` if the value is an arrow function,
-otherwise `false`.
-
-#### isBound
-
-Determines if a given value is a bound function. Bound functions are
-created using the `Function.prototype.bind` method, which allows setting
-the `this` value at the time of binding. This method checks if the value
-is an instance of `Function`, if its string representation starts with
-'bound', and if it lacks a `prototype` property. These characteristics
-are indicative of bound functions in JavaScript.
-
-##### Parameters
-
-*   `value` **any** The value to be checked, typically a function.
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Returns `true` if the value is a bound function,
-otherwise `false`. Bound functions have a specific format in their
-string representation and do not have their own `prototype` property.
-
-#### isClass
-
-Determines if a given value is a class. It checks if the value is an
-instance of `Function` and if its string representation includes the
-keyword 'class'. This method is useful for distinguishing classes from
-other function types in JavaScript.
-
-##### Parameters
-
-*   `value` **any** The value to be checked.
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Returns `true` if the value is a class, otherwise
-`false`.
-
-#### isFunction
-
-Checks if a given value is a regular function. This method verifies if
-the value is an instance of `Function`, which includes regular functions,
-classes, and async functions but excludes arrow functions.
-
-##### Parameters
-
-*   `value` **any** The value to be checked.
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Returns `true` if the value is a regular function,
-otherwise `false`.
-
-#### isGenerator
-
-The function checks if a given value is a generator function
-
-##### Parameters
-
-*   `value` **any** The `value` parameter is the value that we want to
-    check if it is a generator function.
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** `true` if the value is an instance of a function and
-its string tag is 'GeneratorFunction', otherwise it returns `false`.
-
-### isAsync
-
-Determines if a given value is an asynchronous function. It checks if the
-value is an instance of `Function` and if its string representation
-includes the keyword 'Async'. This method is particularly useful for
-identifying async functions.
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Returns `true` if the value is an async function,
-otherwise `false`.
-
-### isAsyncGenerator
-
-The function checks if a given value is an async generator function
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** `true` if the value is an instance of a function and
-its string tag is 'AsyncGeneratorFunction', otherwise it returns `false`.
-
-### isBigArrow
-
-Checks if a given value is an arrow function. It verifies if the value is
-an instance of `Function`, if its string representation includes the '=>'
-symbol, and if it lacks a prototype, which is a characteristic of arrow
-functions in JavaScript.
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Returns `true` if the value is an arrow function,
-otherwise `false`.
-
-### isBound
-
-Determines if a given value is a bound function. Bound functions are
-created using the `Function.prototype.bind` method, which allows setting
-the `this` value at the time of binding. This method checks if the value
-is an instance of `Function`, if its string representation starts with
-'bound', and if it lacks a `prototype` property. These characteristics
-are indicative of bound functions in JavaScript.
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Returns `true` if the value is a bound function,
-otherwise `false`. Bound functions have a specific format in their
-string representation and do not have their own `prototype` property.
-
-### isClass
-
-Determines if a given value is a class. It checks if the value is an
-instance of `Function` and if its string representation includes the
-keyword 'class'. This method is useful for distinguishing classes from
-other function types in JavaScript.
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Returns `true` if the value is a class, otherwise
-`false`.
-
-### isFunction
-
-Checks if a given value is a regular function. This method verifies if
-the value is an instance of `Function`, which includes regular functions,
-classes, and async functions but excludes arrow functions.
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Returns `true` if the value is a regular function,
-otherwise `false`.
-
-### isGenerator
-
-The function checks if a given value is a generator function
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** `true` if the value is an instance of a function and
-its string tag is 'GeneratorFunction', otherwise it returns `false`.
-
-### ObjectExtensions
-
-`ObjectExtensions` is a patch for the JavaScript built-in `Object` class.
-It adds utility methods to the `Object` class without modifying the global
-namespace directly. This patch includes methods for key validation, object
-type checking, and retrieving the string tag of an object. These methods
-are useful for enhancing the capabilities of the standard `Object` class
-with additional utility functions.
-
-#### isNullDefined
-
-The function checks if a value is either `undefined` or `null`.
-
-##### Parameters
-
-*   `value` **any** The parameter "value" is a variable that can hold
-    any value.
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** `true` if the value is either `undefined` or `null`,
-and `false` otherwise.
-
-#### hasStringTag
-
-Checks to see if the supplied `value` is both an object, and has the
-appropriate symbol defined.
-
-##### Parameters
-
-*   `value` **any** the value to determine if it contains a defined
-    `Symbol.toStringTag` defined.
-
-Returns **any** true if the symbol is defined, false otherwise
-
-#### getStringTag
-
-Retrieves the string tag of an object. The string tag is a representation
-of the object's type, as defined by its `Object.prototype.toString`
-method. This utility method is helpful for getting a more descriptive
-type of an object than what is returned by the `typeof` operator,
-especially for custom objects.
-
-##### Parameters
-
-*   `value` **any** The object whose string tag is to be retrieved.
-*   `strict` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** if this is set to true, undefined will be
-    returned whenever a supplied object does not have a
-    `Symbol.toStringTag` defined, period. if false, the default, (optional, default `false`)
-
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The string tag of the object, indicating its type.
-
-#### getType
-
-Determines the type of the given value based on its string tag. This method
-uses `Object.getStringTag` to obtain the string tag of the value, which
-represents its more specific type (e.g., Array, Map, Set) rather than just
-'object'. The method then maps this string tag to the corresponding type
-present in the provided `owner` object, which defaults to `globalThis`.
-This utility method is especially useful for identifying the specific
-constructor or class of an object, beyond the basic types identified by
-the `typeof` operator.
-
-##### Parameters
-
-*   `value` **any** The value whose type is to be determined.
-*   `owner` **[object](#object)** The object in which to look up the
-    constructor corresponding to the string tag. Defaults to `globalThis`,
-    which covers global constructors like `Array`, `Object`, etc. (optional, default `globalThis`)
-
-Returns **([Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function) | [object](#object) | null | [undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined))** Returns the constructor or
-type of the value based on its string tag. For 'Null' and 'Undefined',
-it returns `null` and `undefined`, respectively. For other types, it
-returns the corresponding constructor (e.g., `Array` for arrays) if
-available in the `owner` object.
-
-#### isObject
-
-Determines if the provided value is an object. This method checks whether
-the value is an instance of `Object` or if its type is 'object'. It's a
-utility method for type-checking, ensuring that a value is an object
-before performing operations that are specific to objects.
-
-##### Parameters
-
-*   `value` **any** The value to be checked.
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Returns `true` if the value is an object,
-otherwise `false`.
-
-#### isPrimitive
-
-Checks to see if the supplied value is a primitive value.
-
-##### Parameters
-
-*   `value` **any** the value to test to see if it is a primitive value type
-
-Returns **any** true if the object is considered widely to be a primitive value,
-false otherwise.
-
-#### isValidKey
-
-Checks if the given value is a valid key for an object. In JavaScript, a
-valid key can be either a string or a symbol. This method is useful for
-validating object keys before using them in operations like setting or
-getting object properties.
-
-##### Parameters
-
-*   `value` **any** The value to be checked.
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Returns `true` if the value is a valid object key
-(string or symbol), otherwise `false`.
-
-#### stripTo
-
-Strips an object down to only the keys specified. Optionally, any
-accessors can be made to retain their context on the source object.
-
-##### Parameters
-
-*   `object` **[object](#object)** the object to pare down
-*   `keys` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [symbol](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Symbol))>** the keys that should appear in the
-    final reduced object
-*   `bindAccessors` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** if this value is true then any
-    accessors from the source object will continue to have their `this`
-    value bound to the source. If the getter or setter on that object is
-    defined using an arrow function, this will not work as intended. (optional, default `true`)
-
-Returns **[object](#object)** an object containing only the keys and symbols
-specified in the `keys` parameter.
-
-### stripTo
-
-Strips an object down to only the keys specified. Optionally, any
-accessors can be made to retain their context on the source object.
-This is a passthrough to the static [Object.stripTo](Object.stripTo) function
-
-#### Parameters
-
-*   `keys` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [symbol](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Symbol))>** the keys that should appear in the
-    final reduced object
-*   `bindAccessors` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** if this value is true then any
-    accessors from the source object will continue to have their `this`
-    value bound to the source. If the getter or setter on that object is
-    defined using an arrow function, this will not work as intended. (optional, default `true`)
-
-Returns **[object](#object)** an object containing only the keys and symbols
-specified in the `keys` parameter.
-
-### getKey
-
-The function `getKey` returns the key associated with a given value
-in a map.
-
-#### Parameters
-
-*   `value` **any** The value parameter is the value that you want to
-    find the corresponding key for in the map.
-*   `strict`  The "strict" parameter is a boolean value that
-    determines whether strict equality (===) or loose equality (==) should
-    be used when comparing the "value" parameter with the values in the
-    entries of the object. If "strict" is set to true, strict equality will
-    be used. (optional, default `true`)
-
-Returns **any** the key associated with the given value. If a matching key is
-found, it is returned. If no matching key is found, null is returned.
-
-### concat
-
-Merges multiple iterables into the set. Each element from the iterables
-is added to the set, ensuring uniqueness of all elements. This method
-mutates the original set.
-
-#### Parameters
-
-*   `iterables` **...[Iterable](#iterable)** One or more iterable objects (like Set
-    or Array) whose elements will be added to the set.
-
-### contains
-
-Checks to see if any value within the `Set` loosely equals the supplied
-value.
-
-#### Parameters
-
-*   `value` **any** any value that might be loosely equal to an item in the
-    set, as opposed to [Set.has](Set.has) which is the equivalent of a strict or
-    triple equals (`===`) check
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** `true` if any value within the set is loosely equal to
-the supplied value, `false` otherwise
-
-### every
-
-Checks if every element in the set passes the test implemented by the
-provided function. The function is called with each element of the set.
-Note: Since sets do not have indices, the index parameter is always NaN.
-
-#### Parameters
-
-*   `everyFn` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** The function to test each element. Receives
-    the element, index (always NaN), and the set itself.
-*   `thisArg` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Optional. Value to use as `this` when executing
-    `everyFn`.
-
-<!---->
-
-*   Throws **[TypeError](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/TypeError)** If `everyFn` is not a function.
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** True if every element passes the test, false otherwise.
-
-### find
-
-Finds the first element in the set satisfying the provided testing
-function. If no elements satisfy the testing function, undefined is
-returned. The function is called with each element of the set.
-Note: Since sets do not have indices, the index parameter is always NaN.
-
-#### Parameters
-
-*   `findFn` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** The function to execute on each element. It
-    receives the element, index (always NaN), and the set itself.
-*   `thisArg` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Optional. Value to use as `this` when executing
-    `findFn`.
-
-<!---->
-
-*   Throws **[TypeError](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/TypeError)** If `findFn` is not a function.
-
-Returns **any** The first element that satisfies `findFn`, or undefined.
-
-### findLast
-
-Finds the last element in the set satisfying the provided testing function.
-If no elements satisfy the testing function, undefined is returned. The
-function is called with each element of the set in reverse order.
-Note: Since sets do not have indices, the index parameter is always NaN.
-
-#### Parameters
-
-*   `findFn` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** The function to execute on each element. It
-    receives the element, index (always NaN), and the set itself.
-*   `thisArg` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Optional. Value to use as `this` when executing
-    `findFn`.
-
-<!---->
-
-*   Throws **[TypeError](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/TypeError)** If `findFn` is not a function.
-
-Returns **any** The last element that satisfies `findFn`, or undefined.
-
-### length
-
-A getter property that returns the number of elements in the set.
-This is an alias for the `size` property of the set.
-
-Returns **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** The number of elements in the set.
-
-### map
-
-Creates a new array populated with the results of calling the provided
-function on every element in the set. The function is called with each
-element of the set. Note: Since sets do not have indices, the index
-parameter is always NaN.
-
-#### Parameters
-
-*   `mapFn` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** The function to execute on each element. It
-    receives the element, index (always NaN), and the set itself.
-*   `thisArg` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Optional. Value to use as `this` when executing
-    `mapFn`.
-
-<!---->
-
-*   Throws **[TypeError](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/TypeError)** If `mapFn` is not a function.
-
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** A new array with each element being the result of the
-`mapFn`.
-
-### reduce
-
-Applies a function against an accumulator and each element in the set to
-reduce it to a single value. The function is called with each element of
-the set. Note: Since sets do not have indices, the index parameter is
-always NaN.
-
-#### Parameters
-
-*   `reduceFn` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** The function to execute on each element. It
-    receives the accumulator, element, index (always NaN), and the set itself.
-*   `initialValue` **any** The initial value to start reducing from.
-*   `thisArg` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Optional. Value to use as `this` when executing
-    `reduceFn`.
-
-<!---->
-
-*   Throws **[TypeError](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/TypeError)** If `reduceFn` is not a function.
-
-Returns **any** The reduced value.
-
-### some
-
-Tests whether at least one element in the set passes the test implemented
-by the provided function. The function is called with each element of the
-set. Note: Since sets do not have indices, the index parameter is always NaN.
-
-#### Parameters
-
-*   `someFn` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** The function to test each element. It receives
-    the element, index (always NaN), and the set itself.
-*   `thisArg` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Optional. Value to use as `this` when executing
-    `someFn`.
-
-<!---->
-
-*   Throws **[TypeError](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/TypeError)** If `someFn` is not a function.
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** True if at least one element passes the test, false
-otherwise.
-
-### ReflectExtensions
-
-The `ReflectExtensions` class is a patch applied to the built-in JavaScript
-`Reflect` object. It extends `Reflect` with additional utility methods that
-enhance its capabilities. These methods provide more advanced ways of
-interacting with object properties, such as checking for the presence of
-multiple keys at once (`hasAll`) or verifying if at least one specified key
-exists in an object (`hasSome`). This class is part of the `@nejs/extension`
-library and is designed to offer these extended functionalities in a way
-that is consistent with the existing `Reflect` API, making it intuitive for
-developers who are already familiar with standard reflection methods in
-JavaScript.
-
-#### hasAll
-
-The function checks if an object has all the specified keys.
-
-##### Parameters
-
-*   `object`  The `object` parameter is the object that we want to
-    check if it has all the specified keys.
-*   `keys` **...any** The `keys` parameter is a rest parameter, which means
-    it can accept any number of arguments. In this case, it is expected
-    to receive multiple keys as arguments.
-
-Returns **any** a boolean value.
-
-#### ownDescriptors
-
-Fetches all descriptors of an object, including those mapped to a
-symbol descriptor value.
-
-##### Parameters
-
-*   `object` **[object](#object)** the object from whose descriptors need to be
-    retrieved.
-
-<!---->
-
-*   Throws **[TypeError](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/TypeError)** if the supplied `object` is null or not an object
-    a TypeError exception will be thrown
-
-Returns **[object](#object)** with keys mapped to object descriptors
-
-#### hasSome
-
-The function checks if an object has at least one of the specified keys.
-
-##### Parameters
-
-*   `object`  The `object` parameter is the object that we want to check
-    for the presence of certain keys.
-*   `keys` **...any** The `keys` parameter is a rest parameter, which means it can
-    accept any number of arguments. These arguments are the keys that we want
-    to check if they exist in the `object`.
-
-Returns **any** The function `hasSome` returns a boolean value indicating whether
-at least one of the keys provided as arguments exists in the given object.
-
-#### entries
-
-Retrieves an array of \[key, descriptor] pairs for each property of the
-provided object. This method is akin to `Object.entries` but includes
-property descriptors instead of the property values. It's useful for cases
-where you need detailed information about properties, including their
-configurability, enumerability, and accessors.
-
-##### Parameters
-
-*   `object` **[object](#object)** The object whose property entries are to be
-    retrieved.
-
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** An array of \[key, descriptor] pairs, where each pair
-consists of the property name (key) and its descriptor. Returns an empty
-array if the input is not a valid object.
-
-#### values
-
-Retrieves an array of values from the property descriptors of the given
-object. This method works similarly to `Object.values` but operates on
-property descriptors instead. It's useful when you need the values of
-properties including getters, setters, and other descriptor-specific
-attributes.
-
-##### Parameters
-
-*   `object` **[object](#object)** The object whose property values are to be
-    retrieved.
-
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** An array of values extracted from the object's property
-descriptors. The values correspond to the `value` attribute in each
-property's descriptor. Returns an empty array if the input is not a valid
-object.
-
-### StringExtensions
-
-`StringExtensions` is a patch for the JavaScript built-in `String` class. It
-adds utility methods to the `String` class without modifying the global namespace
-directly. This patch includes methods for key validation, object type checking,
-and retrieving the string tag of an object. These methods are useful for
-enhancing the capabilities of the standard `String` class with additional
-utility functions.
-
-#### isString
-
-The `isString` method does exactly what one would it expect. It returns
-true if the string matches typeof or instanceof as a string.
-
-##### Parameters
-
-*   `value` **any** checks to see if the `value` is a string
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** `true` if it is a `String`, `false` otherwise
-
-### SymbolExtensions
-
-`SymbolExtensions` is a patch for the JavaScript built-in `Symbol` class. It
-adds utility methods to the `Symbol` class without modifying the global namespace
-directly. This patch includes methods for key validation, object type checking,
-and retrieving the string tag of an object. These methods are useful for
-enhancing the capabilities of the standard `Symbol` class with additional
-utility functions.
-
-#### isSymbol
-
-The `isSymbol` method does exactly what one would it expect. It returns
-true if the string matches typeof or instanceof as a symbol.
-
-##### Parameters
-
-*   `value` **any** checks to see if the `value` is a string
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** `true` if it is a `Symbol`, `false` otherwise
-
-#### isRegistered
-
-Returns true if the supplied value is a Symbol created using
-`Symbol.for()`.
-
-##### Parameters
-
-*   `value` **any** assumption is that the supplied value is of type
-    'symbol' however, unless `allowOnlySymbols` is set to `true`, `false`
-    will be returned for any non-symbol values.
-*   `allowOnlySymbols` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** true if an error should be thrown
-    if the supplied value is not of type 'symbol' (optional, default `false`)
-
-Returns **any** true if the symbol is registered, meaning, none of the spec
-static symbols (`toStringTag`, `iterator`, etc...), and no symbols
-created by passing a value directly to the Symbol function, such as
-`Symbol('name')`
-
-#### isNonRegistered
-
-A function that returns true if the symbol is not registered, meaning,
-any of the spec static symbols (`toStringTag`, `iterator`, etc...), and
-any symbols created by passing a value directly to the `Symbol` function,
-such as `Symbol('name')`.
-
-##### Parameters
-
-*   `value` **any** assumption is that the supplied value is of type
-    'symbol' however, unless allowOnlySymbols is set to true, false will
-    be returned for any non-symbol values.
-*   `allowOnlySymbols` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** true if an error should be thrown
-    if the supplied value is not of type 'symbol' (optional, default `false`)
-
-Returns **any** true if the symbol is not registered, meaning, any of the
-spec static symbols (`toStringTag`, `iterator`, etc...), and any symbols
-created by passing a value directly to the `Symbol` function, such as
-`Symbol('name')`
-
-Returns **any** true if the `value` in question is both a `symbol` and has
-returns `undefined` if passed to `Symbol.keyFor`
-
-### ArrayPrototypeExtensions
-
-The `ArrayPrototypeExtensions` patch extends the prototype of the built-in
-JavaScript `Array` with additional properties for convenience and improved
-readability. By applying this patch, all array instances gain new getter
-properties `first` and `last`, which provide quick access to the first and
-last elements of the array, respectively. This enhancement simplifies common
-operations on arrays and makes code more expressive and concise.
-
-#### contains
-
-Sometimes defining even a short function for the invocation of `find`
-can be troublesome. This helper function performs that job for you. If
-the specified element is in the array, `true` will be returned.
-
-##### Parameters
-
-*   `value` **any** the value to search for. This value must triple equals
-    the array element in order to return true.
-
-Returns **any** true if the exact element exists in the array, false otherwise
-
-#### findEntry
-
-The `findEntry` function searches the entries of the object and returns
-the `[index, value]` entry array for the first matching value found.
-
-##### Parameters
-
-*   `findFn` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** a function that takes the element to be checked
-    and returns a boolean value
-
-Returns **any** if `findFn` returns `true`, an array with two elements, the first
-being the index, the second being the value, is returned.
-
-#### first
-
-A getter property that returns the first element of the array. If the
-array is empty, it returns `undefined`. This property is useful for
-scenarios where you need to quickly access the first item of an array
-without the need for additional checks or method calls.
-
-Returns **any** The first element of the array or `undefined` if the array
-is empty.
-
-#### last
-
-A getter property that returns the last element of the array. It
-calculates the last index based on the array's length. If the array is
-empty, it returns `undefined`. This property is beneficial when you need
-to access the last item in an array, improving code readability and
-avoiding manual index calculation.
-
-Returns **any** The last element of the array or `undefined` if the
-array is empty.
-
-### object
-
-An optionally associated object, usually the parent from which
-the descriptor was taken, or undefined if none was able to be
-derived.
-
-Type: [object](#object)
-
-### constructor
-
-Constructs a Descriptor instance which wraps and manages an object
-property descriptor. The constructor can handle an existing descriptor
-object or create a new one based on an object and a property key.
-
-#### Parameters
-
-*   `object` **([object](#object) | Descriptor)** The target object or an existing
-    Descriptor instance. If it's an object, it is used in conjunction with
-    `key` to create a descriptor. If it's a Descriptor instance, it is used
-    directly as the descriptor.
-*   `key` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [symbol](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Symbol))?** The property key for which the descriptor
-    is to be created. This parameter is ignored if `object` is a Descriptor
-    instance. If `key` is an object and `object` is a valid descriptor, `key`
-    is treated as the associated object.
-
-<!---->
-
-*   Throws **[Error](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error)** Throws an error if the constructed descriptor is not
-    valid.
-
-### isAccessor
-
-Detects whether or not this instance is an accessor object descriptor
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** true if this object has a getter or setter and is not
-a data descriptor
-
-### isData
-
-Detects whether or not this instance is an data object descriptor
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** true if this object has a value property and is not
-an accessor descriptor
-
-### isDescriptor
-
-Detects whether or not this instance is a valid object descriptor
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** true if this descriptor store is a valid descriptor
-
-### configurable
-
-Getter around the `configurable` object descriptor property of
-this instance of Descriptor.
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** a boolean value or undefined if the internal
-descriptor store is invalid.
-
-### configurable
-
-Sets the `configurable` value of this object. If the internal descriptor
-store store is invalid, the value is thrown away
-
-#### Parameters
-
-*   `value` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** the value to set for the `configurable` descriptor
-    property. If this value is not a `boolean` it will be converted to one
-
-### enumerable
-
-Getter around the `enumerable` object descriptor property of
-this instance of Descriptor.
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** a boolean value or undefined if the internal
-descriptor store is invalid.
-
-### enumerable
-
-Sets the `enumerable` value of this object. If the internal descriptor
-store is invalid, the value is thrown away
-
-#### Parameters
-
-*   `value` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** the value to set for the `enumerable` descriptor
-    property. If this value is not a `boolean` it will be converted to one
-
-### writable
-
-Getter around the `writable` object descriptor property of
-this instance of Descriptor.
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** a boolean value or undefined if the internal
-descriptor store is invalid.
-
-### writable
-
-Sets the `writable` value of this object. If the internal descriptor
-store is invalid, the value is thrown away
-
-#### Parameters
-
-*   `value` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** the value to set for the `writable` descriptor
-    property. If this value is not a `boolean` it will be converted to one
-
-### value
-
-Getter around the `value` object descriptor property of
-this instance of Descriptor.
-
-Returns **any** any value stored in this descriptor
-
-### value
-
-Sets the `value` value of this object. If the internal descriptor
-store is invalid, the value is thrown away
-
-#### Parameters
-
-*   `value` **any** the value to set for the `value` descriptor
-    property.
-
-### get
-
-Getter around the `get` object descriptor property of
-this instance of Descriptor.
-
-Returns **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** a function if the getter for this descriptor is
-defined or `undefined` if the internal descriptor object or the getter
-is undefined.
-
-### get
-
-Sets the `get` value of this object. If the internal descriptor
-store is invalid, the value is thrown away
-
-#### Parameters
-
-*   `value` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** the getter function for this descriptor
-
-### boundGet
-
-Retrieves the [get](get) function for this accessor and binds it to
-the object from which the descriptor was derived, if that value is set.
-Otherwise this method is identical to the [get](get) accessor.
-
-Returns **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** the getter if one is defined. If possible this
-getter will be bound the associated and previously set `object`.
-
-### set
-
-Getter around the `set` object descriptor property of
-this instance of Descriptor.
-
-Returns **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** a function if the setter for this descriptor is
-defined or `undefined` if the internal descriptor object or the setter
-is undefined.
-
-### set
-
-Sets the `set` value of this object. If the internal descriptor
-store is invalid, the value is thrown away
-
-#### Parameters
-
-*   `value` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** the setter function for this descriptor
-
-### boundSet
-
-Retrieves the [set](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set) function for this accessor and binds it to
-the object from which the descriptor was derived, if that value is set.
-Otherwise this method is identical to the [set](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set) accessor.
-
-Returns **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** the setter if one is defined. If possible this
-setter will be bound the associated and previously set `object`.
-
-### hasObject
-
-The function checks the descriptor's associated object has been set on this
-instance of `Descriptor`.
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** `true` if the `object` property has been set,
-`false` otherwise
-
-### object
-
-Returns the descriptor's associated `object` value. This is usually the
-parent object from which the descriptor was derived. If the value is preset
-it will be returned. Undefined will be returned otherwise
-
-Returns **[object](#object)** the associated object for this descriptor or undefined
-if it has not yet been set.
-
-### object
-
-Sets the descriptor's associated `object` value. This is usually the
-parent object from which the descriptor was derived.
-
-#### Parameters
-
-*   `value` **[object](#object)** sets the object for which this descriptor is to
-    be associated with.
-
-### for
-
-The function returns a string representation of a descriptor object with
-additional information about its type when used in the NodeJS repl.
-
-#### Parameters
-
-*   `depth` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** The `depth` parameter is used to specify the
-    maximum depth to which nested objects and arrays will be formatted. If
-    the depth is exceeded, the output will be truncated with ellipses.
-*   `options` **[object](#object)** The `options` parameter is an object that
-    contains various configuration options for the `inspect` function.
-    These options can be used to customize the output of the inspection.
-*   `inspect` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** The `inspect` parameter is a function that
-    is used to convert an object into a string representation. It is
-    typically used for debugging purposes or when displaying an object's
-    properties.
-
-Returns **any** a string that represents a descriptor. The string includes the
-type of the descriptor (either "Accessor" or "Data") and the result of
-inspecting the descriptor object using the provided options and depth.
-
-### applyTo
-
-Take the descriptor defined by this objects values and apply them to
-the specified object using the specified key.
-
-#### Parameters
-
-*   `object` **[object](#object)** the object to apply this descriptor to
-*   `forKey` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [symbol](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Symbol))** the string or symbol for which this
-    descriptor will abe applied
-*   `bindAccessors`   (optional, default `false`)
-
-### toObject
-
-Converts this Descriptor class instance into a basic object descriptor
-that is accepted by all the standard JavaScript runtime methods that
-deal with object descriptors.
-
-#### Parameters
-
-*   `bindAccessors` **([boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean) | [object](#object))** if `true`, a non-fatal attempt to
-    bind accessor getter and setter methods is made before returning the
-    object. If `bindAccessors` is truthy and is also an object, this is the
-    object the accessors will be bound to. If the value is falsy or if the
-    descriptor instance represents a data descriptor, nothing happens. (optional, default `false`)
-
-Returns **[object](#object)** the object instance's basic object representation as
-a descriptor.
-
-### toPrimitive
-
-Converts this descriptor object into a base representation
-
-#### Parameters
-
-*   `hint` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** one of `string`, `number` or default;
-
-Returns **any** if the hint is 'string', then a string identifying the enum
-and its type is returned. `number` will always be NaN since it is incoret
-
-### toStringTag
-
-Ensures that the constructor of this object instance's name
-is returned if the string tag for this instance is queried
-
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the name of the class
-
-### for
-
-Shorthand for Object.getOwnPropertyDescriptor()
-
-#### Parameters
-
-*   `object` **[object](#object)** a non-null object instance
-*   `key` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [symbol](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Symbol))** a symbol or string referencing which key on the
-    object to return a descriptor for.
-*   `wrap`   (optional, default `false`)
-
-Returns **any** an object descriptor for the requested field or null
-
-### getData
-
-The function `getData` retrieves the value of a property from an object
-if it exists and is a data property.
-
-#### Parameters
-
-*   `object` **[object](#object)** The "object" parameter is the object from which
-    we want to retrieve data.
-*   `property` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [symbol](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Symbol))** The `property` parameter is the name of
-    the property that you want to retrieve the data from.
-
-Returns **any** either the value of the specified property if it exists and is
-a data property, or undefined if the property does not exist or is not
-a data property.
-
-### getAccessor
-
-The function `getAccessor` checks if an object has a getter/setter accessor
-for a given property and returns the accessor functions if found.
-
-#### Parameters
-
-*   `object`  The `object` parameter is the object from which we want to
-    retrieve the accessor for a specific property.
-*   `property`  The `property` parameter is the name of the property for
-    which we want to get the accessor.
-
-Returns **any** an object that contains the getter and setter functions for the
-specified property of the given object. If the property is an accessor
-property (defined with a getter and/or setter), the returned object will
-also have additional properties such as "accessor" and "descriptor". If
-the property is not found or is not an accessor property, the function
-returns undefined.
-
-### base
-
-The function returns an object with enumerable and configurable properties
-based on the input parameters.
-
-#### Parameters
-
-*   `enumerable`  A boolean value indicating whether the property
-    can be enumerated (listed) when iterating over the object's properties. (optional, default `false`)
-*   `configurable`  The `configurable` parameter determines
-    whether the property can be deleted or its attributes can be modified.
-    If `configurable` is set to `true`, the property can be deleted and its
-    attributes can be changed. If `configurable` is set to `false`, the
-    property cannot be deleted and (optional, default `false`)
-
-Returns **any** An object with the properties `enumerable` and `configurable` is
-being returned. The values of these properties are determined by the
-arguments passed to the `base` function.
-
-### accessor
-
-The function "newAccessor" creates a new property descriptor object with a
-getter and setter function, along with optional enumerable and configurable
-flags.
-
-#### Parameters
-
-*   `getter`  The getter parameter is a function that will be used as the
-    getter for the property. It will be called when the property is accessed.
-*   `setter`  The `setter` parameter is a function that will be used as
-    the setter for the property. It will be called whenever the property is
-    assigned a new value.
-*   `null` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** *   `getter`: A function that will be used as the getter for the
-        property. (optional, default `Descriptor.base()`)
-
-    *   `null.enumerable` &#x20;
-    *   `null.configurable` &#x20;
-
-Returns **any** an object with properties "get", "set", "enumerable", and
-"configurable".
-
-### data
-
-The function "newData" creates a new data object with customizable
-properties.
-
-#### Parameters
-
-*   `value`  The value parameter represents the value that will be
-    assigned to the property.
-*   `writable`  The `writable` parameter determines whether the
-    value of the property can be changed. If `writable` is set to `true`, the
-    value can be changed. If `writable` is set to `false`, the value cannot be
-    changed. (optional, default `true`)
-*   `null` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** *   `value`: The value to be assigned to the property. (optional, default `Descriptor.base()`)
-
-    *   `null.enumerable` &#x20;
-    *   `null.configurable` &#x20;
-
-Returns **any** an object with properties `value`, `enumerable`, `writable`, and
-`configurable`.
-
-### isDescriptor
-
-The function checks if an object is a likely an object descriptor in
-JavaScript. This is determined as an object with some of the known
-descriptor keys (e.g. enumerable, configurable, value, writable, get,
-or set). Technically, any object could serve as a descriptor but this
-function only returns true if known descriptor keys are found.
-
-#### Parameters
-
-*   `object`  The `object` parameter is the object that we want to
-    check if it is a descriptor.
-
-Returns **any** a boolean value.
-
-### isData
-
-The function checks if a given property or descriptor is a data property.
-
-brie
-
-#### Parameters
-
-*   `object_orProp` &#x20;
-*   `property` &#x20;
-*   `descriptor_orProp`  The `descriptor_orProp` parameter can be
-    either a descriptor or a property name.
-*   `object`  The `object` parameter is the object that you want to
-    check for data properties.
-
-Returns **any** a boolean value. It returns `true` if the `descriptor` object
-has any keys that match the `DATA_KEYS` array, otherwise it returns
-`false`.
-
-### isAccessor
-
-The function checks if a given property descriptor or property of an
-object is an accessor.
-
-#### Parameters
-
-*   `object_orProp`  The `descriptor_orProp` parameter can be either a
-    descriptor object or a property name.
-*   `property`  The `object` parameter is the object that you want to
-    check for accessor properties.
-
-Returns **any** a boolean value. It returns true if the descriptor or property
-passed as an argument is an accessor descriptor, and false otherwise.
-
-### flexible
-
-A base descriptor (new for each read) that is both enumerable and
-configurable
-
-Returns **any** The method `flexible` is returning the result of calling the
-`base` method with the arguments `true` and `true`.
-
-### enigmatic
-
-A base descriptor (new for each read) that is not enumerable but is
-configurable
-
-Returns **any** The method `enigmatic` is returning the result of calling
-the `base` method with the arguments `false` and `true`.
-
-### intrinsic
-
-A base descriptor (new for each read) that is neither enumerable
-nor configurable
-
-Returns **any** The code is returning the result of calling the `base` method with
-the arguments `false` and `false`.
-
-### transparent
-
-A base descriptor (new for each read) that enumerable but not configurable
-
-Returns **any** The method is returning the result of calling the `base`
-method with the arguments `true` and `false`.
-
-### SHARED\_KEYS
-
-The function returns an array of shared descriptor keys.
-
-Returns **any** An array containing the strings 'configurable' and 'enumerable'.
-
-### ACCESSOR\_KEYS
-
-The function returns an array of accessor descriptor keys.
-
-Returns **any** An array containing the strings 'get' and 'set' is being returned.
-
-### DATA\_KEYS
-
-The function returns an array of data descriptor keys.
-
-Returns **any** An array containing the strings 'value' and 'writable' is being
-returned.
-
-### maskAs
-
-Transforms an object to mimic a specified prototype, altering its type
-conversion and inspection behaviors. This function is especially useful
-for creating objects that need to behave like different primitive types
-under various operations.
-
-#### Parameters
-
-*   `object` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The object to be transformed.
-*   `classPrototype` &#x20;
-*   `options` &#x20;
-*   `prototype` **([Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function) | [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object))** The prototype or
-    class to emulate. If a function is provided, its prototype is used.
-    Defaults to String.prototype. (optional, default `String.prototype`)
-*   `toPrimitive` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** A function
-    defining how the object should be converted to a primitive value. It
-    receives a type hint ('number', 'string', or 'default') and the object,
-    returning the primitive value. (optional, default `(hint,val)=>String(val)`)
-
-Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | null)** The transformed object, or null if neither a class
-nor a prototype could be derived from the provided prototype parameter.
-
-### maskAsString
-
-Masks an object as a string-like object by setting its prototype to
-String and defining how it converts to primitive types. This is
-particularly useful when an object needs to behave like a string in
-certain contexts, such as type coercion or logging.
-
-#### Parameters
-
-*   `object` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The object to be masked as a string.
-*   `stringKey` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The object property key used for
-    the string representation. Defaults to 'value'. (optional, default `'value'`)
-*   `toPrimitive` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)?** Optional custom function for primitive
-    conversion. If omitted, a default function handling various conversion
-    hints is used.
-
-Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | null)** The string-masked object, or null if the object
-doesn't have the specified stringKey property.
-
-### maskAsNumber
-
-Masks an object as a number-like object. This allows the object to
-behave like a number in operations like arithmetic and type coercion.
-It sets the prototype to Number and defines custom conversion behavior.
-
-#### Parameters
-
-*   `object` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The object to be masked as a number
-    representation. Defaults to 'value'.
-*   `numberKey` &#x20;
-*   `toPrimitive` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)?** Optional custom function for primitive
-    conversion. If not provided, a default function handling different
-    conversion hints is used.
-
-Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | null)** The number-masked object, or null if the object
-doesn't have the specified numberKey property.
-
-### GenericMask
-
-Generates options for generic masking of an object, providing defaults for
-prototype and toPrimitive function if not specified.
-
-#### Parameters
-
-*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The options object including prototype,
-    targetKey, and toPrimitive function.
-
-    *   `options.prototype` &#x20;
-    *   `options.targetKey`   (optional, default `'value'`)
-    *   `options.toPrimitive` &#x20;
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The options object with defaults applied as necessary.
-
-### StringMask
-
-Generates options for string masking of an object, providing a default
-toPrimitive function if not specified.
-
-#### Parameters
-
-*   `targetKey` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The object property key for string
-    representation.
-*   `toPrimitive` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Custom function for primitive conversion.
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options for string masking.
-
-### NumberMask
-
-Generates options for number masking of an object, providing a default
-toPrimitive function if not specified.
-
-#### Parameters
-
-*   `targetKey` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The object property key for number
-    representation.
-*   `toPrimitive` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Custom function for primitive conversion.
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options for number masking.
-
-### RefSet
-
-**Extends Set**
-
-RefSet class extends the standard Set object to manage a collection of
-WeakRef objects. It provides additional functionality such as objectification
-of values and various utility methods.
-
-Unlike standard Sets or Arrays, RefSet stores weak references to objects,
-allowing them to be garbage-collected if there are no other references to
-them. This behavior is different from Arrays and standard Sets, which
-maintain strong references to their elements.
-
-#### objectifying
-
-Method to control whether the RefSet should objectify its values. When
-objectifying, primitive values (number, string, boolean, bigint) are
-converted to their respective object types, which allows them to be used as
-WeakRef targets.
-
-##### Parameters
-
-*   `setObjectification` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Flag to enable or disable
-    objectification. (optional, default `true`)
-
-Returns **[RefSet](#refset)** The current RefSet instance to allow method chaining.
-
-#### objectifyValues
-
-Returns the state indicating whether or not `RefSet` will attempt to
-convert non-valid primitives into targets that are valid input for
-new `WeakRef` object instances. If this value is `false` then no
-*objectification* will occur.
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** The current state of objectifyValues.
-
-#### objectifyValues
-
-Setting this value to true, will cause all added values to the Set to
-be analyzed for validity as a candidate to be wrapped in a `WeakRef`
-object. If true, and if possible, the object will be turned into an
-`Object` variant first. This will also enable less rigid variable
-comparison in the `.has()` method (i.e. `==` instead of `===`).
-
-##### Parameters
-
-*   `value` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** The new state to set for objectifyValues.
-
-#### add
-
-Overrides the add method of Set. Adds a value to the RefSet, converting it
-to a WeakRef. Throws an error if the value is not a valid WeakRef target
-(e.g., null, undefined, or a registered symbol). If `objectifyValues` is
-enabled, an attempt to convert primitives to their object variants will be
-made. These are numbers, strings, boolean values and big integers.
-
-##### Parameters
-
-*   `value` **any** The value to be added to the RefSet.
-
-<!---->
-
-*   Throws **[TypeError](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/TypeError)** If the value is not a valid WeakRef target.
-
-#### addAll
-
-Adds multiple values to the RefSet. The supplied `values` should be
-iterable and truthy. This function defers to `.add()` for its logic so
-each value from the supplied collection of values will also be subject
-to the criteria of that function.
-
-##### Parameters
-
-*   `values` **[Iterable](#iterable)** An iterable of values to add to the RefSet.
-
-<!---->
-
-*   Throws **[TypeError](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/TypeError)** If the supplied values are falsey or non-iterable.
-
-#### clean
-
-Removes all elements from the RefSet that have been garbage collected
-(i.e., their WeakRef no longer points to an object).
-
-Returns **[RefSet](#refset)** The current RefSet instance to allow method chaining.
-
-#### entries
-
-Executes a provided function once for each value in the RefSet. The callback
-function receives the dereferenced value, the value again (as RefSet doesn't
-use keys), and the RefSet itself. This method provides a way to iterate over
-and apply operations to the values stored in the RefSet, taking into account
-that they are weak references and may have been garbage-collected.
-
-##### Parameters
-
-*   `forEachFn` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Function to execute for each element. It
-    takes three arguments: element, element (again, as RefSet has no key), and
-    the RefSet itself.
-*   `thisArg` **any** Value to use as `this` when executing `forEachFn`.
-
-#### forEach
-
-Iterate over the items in the set and pass them to the supplied
-function ala `Array.prototype.forEach`. Note however, there are no
-indexes on Sets and as such, the index parameter of the callback
-will always be `NaN`. Subsequently the `array` or third parameter
-will receive the set instance rather than an array.
-
-##### Parameters
-
-*   `forEachFn` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** the function to use for each element in
-    the set.
-*   `thisArg` **[object](#object)** the `this` argument to be applied to each
-    invocation of the `forEachFn` callback. Note, this value is unable
-    to be applied if the `forEachFn` is a big arrow function
-
-#### values
-
-Returns an iterator for the values in the RefSet. Each value is
-dereferenced from its WeakRef before being returned. This method allows
-iterating over he set's values, similar to how one would iterate over
-values in a standard Set or Array, but with the understanding that the
-values are weakly referenced and may no longer exist (in which case
-they are skipped).
-
-Returns **[Iterator](#iterator)** An iterator for the values.
-
-#### keys
-
-Returns an iterator for the keys of the RefSet. In RefSet, keys and
-values are identical, so this method behaves the same as `values()`. It
-provides compatibility with the standard Set interface and allows use in
-contexts where keys are expected, despite RefSet not differentiating
-between keys and values.
-
-Returns **[Iterator](#iterator)** An iterator for the keys.
-
-#### has
-
-Determines whether an element with the specified value exists in the
-`RefSet`. For non-objectified sets, this method checks if the dereferenced
-values of the set include the specified value.
-
-For objectified sets, it uses the `contains` method which accounts for
-the objectification. This method differs from standard Set `has` in that
-it works with weak references and considers objectification settings.
-
-##### Parameters
-
-*   `value` **any** The value to check for presence in the RefSet.
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** True if an element with the specified value exists
-in the RefSet, false otherwise.
-
-#### contains
-
-Checks if the RefSet contains a value that is equal to the specified
-value. This method is used primarily in objectified RefSets to determine
-the presence of a value, taking into account objectification. It differs
-from the `has` method in that it's tailored for sets that have
-transformed their primitive values into objects, whereas `has` is more
-general-purpose.
-
-##### Parameters
-
-*   `value` **any** The value to search for in the RefSet.
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** True if the RefSet contains the value, false otherwise.
-
-#### filter
-
-Creates a new array with all elements that pass the test implemented by
-the provided function. This method iterates over each element,
-dereferences it, and applies the filter function. Unlike Array `filter`,
-the callback receives the dereferenced value and not an index or array,
-reflecting the non-indexed nature of RefSet. Useful for selectively
-creating arrays from the set based on certain conditions, especially when
-dealing with weak references.
-
-##### Parameters
-
-*   `filterFn` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Function to test each element of the RefSet.
-    The function receives the dereferenced value.
-*   `thisArg` **any** Value to use as `this` when executing `filterFn`.
-
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** A new array with the elements that pass the test.
-
-#### find
-
-Returns the value of the first element in the RefSet that satisfies the
-provided testing function. Similar to Array `find`, this method iterates
-over the RefSet, dereferencing each value and applying the testing
-function. The non-indexed nature of RefSet is considered, as the
-callback does not receive an index. This method is useful for finding a
-specific element based on a condition.
-
-##### Parameters
-
-*   `findFn` &#x20;
-*   `thisArg` **any** Value to use as this when executing findFn.
-
-Returns **any** The value of the first element in the RefSet that satisfies
-the testing function, or undefined if none found.
-
-Returns **any** the dereferenced value if found, or undefined otherwise
-
-#### map
-
-Creates a new array or `RefSet` with the results of calling a provided
-function on every element in the calling `RefSet`. This method dereferences
-each value, applies the `mapFn`, and collects the results. If `toRefSet` is
-`true`, a new `RefSet` is returned; otherwise, an array. This method
-differs from `Array.map` in handling weak references and the potential to
-return a new `RefSet` instead of an array.
-
-##### Parameters
-
-*   `mapFn` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Function that produces an element of the new
-    array or `RefSet`, taking three arguments.
-*   `thisArg` **any** Value to use as this when executing mapFn.
-*   `toRefSet` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Determines if the output should be a new
-    `RefSet` (`true`) or an array (`false`).
-*   `mirrorObjectification` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** If `true` and `toRefSet` is
-    `true`, the new `RefSet` mirrors the objectification setting of the
-    original.
-
-Returns **([Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array) | [RefSet](#refset))** A new array or `RefSet` with each element being
-the result of the `mapFn`.
-
-#### toStringTag
-
-Ensures that the constructor of this object instance's name
-is returned if the string tag for this instance is queried
-
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the name of the class
-
-### RefMap
-
-**Extends Map**
-
-RefMap class extends the standard Map object to manage a collection of
-WeakRef values mapped to strong keys. It provides additional functionality
-such as objectification of values and various utility methods.
-
-Unlike standard Maps or Objects, RefMap stores weak references to objects,
-allowing them to be garbage-collected if there are no other references to
-them. This behavior is different from Maps and standard Objects, which
-maintain strong references to their elements.
-
-#### Parameters
-
-*   `args` **...any**&#x20;
-
-#### objectifying
-
-Method to control whether the RefMap should objectify its values. When
-objectifying, primitive values (number, string, boolean, bigint) are
-converted to their respective object types, which allows them to be used as
-WeakRef targets.
-
-##### Parameters
-
-*   `setObjectification` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Flag to enable or disable
-    objectification. (optional, default `true`)
-
-Returns **[RefMap](#refmap)** The current RefMap instance to allow method chaining.
-
-#### asObject
-
-The function converts a JavaScript Map object into a regular JavaScript
-object, handling invalid keys by converting them to strings.
-
-Returns **[object](#object)** an object; keys that are not either a `String` or a
-`Symbol` will be converted to a string.
-
-#### objectifyValues
-
-Returns the state indicating whether or not `RefMap` will attempt to
-convert non-valid primitives into targets that are valid input for
-new `WeakRef` object instances. If this value is `false` then no
-*objectification* will occur.
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** The current state of objectifyValues.
-
-#### objectifyValues
-
-Setting this value to true, will cause all set values to the Map to
-be analyzed for validity as a candidate to be wrapped in a `WeakRef`
-object. If true, and if possible, the object will be turned into an
-`Object` variant first.
-
-##### Parameters
-
-*   `value` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** The new state to set for objectifyValues.
-
-#### get
-
-The `get` function retrieves a value from a map and returns it, or returns a
-default value if the value is null or undefined. The actual retrieved value
-is a dereferenced `WeakRef`. If the result is `undefined` and this is not the
-expected response, it is likely the value has been garbage collected.
-
-##### Parameters
-
-*   `key` **any** The key parameter is the key of the value you want to
-    retrieve from the data structure.
-*   `defaultValue` **any** The `defaultValue` parameter is the value that
-    will be returned if the key does not exist in the map or if the value
-    associated with the key has been garbage collected (i.e., it no longer
-    exists).
-
-Returns **any** The method is returning the value associated with the given key.
-If the value is not found or if it has been garbage collected (deref()
-returns null), then the defaultValue is returned.
-
-#### set
-
-Overrides the set method of `Map`. Adds a value to the `RefMap`,
-converting it to a `WeakRef`. Throws an error if the value is not a
-valid `WeakRef` target (e.g., `null`, `undefined`, or a registered
-`symbol`). If [objectifyValues](objectifyValues) is enabled, an attempt to convert
-primitives to their object variants will be made. These are `numbers`,
-`strings`, `boolean` values and `bigint`s.
-
-##### Parameters
-
-*   `key` **any** The `key` to be set on the `RefMap`
-*   `value` **any** The value to be associated with the `key`
-
-<!---->
-
-*   Throws **[TypeError](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/TypeError)** If the value is not a valid WeakRef target.
-
-#### setAll
-
-Sets multiple values at a single time. The format is an array of array
-or rather an array of [Object.entries](Object.entries) (for example,
-`[[key1,value1], [key2,value2]]`). For each entry pair, if the length
-is not 2, either missing a key or value, it will be skipped.
-
-##### Parameters
-
-*   `entries` &#x20;
-*   `values` **[Iterable](#iterable)** An iterable of values to add to the RefMap.
-
-<!---->
-
-*   Throws **[TypeError](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/TypeError)** If the supplied values are falsey or non-iterable.
-
-Returns **RepMap** returns `this` to allow for chaining
-
-#### clean
-
-Removes all elements from the RefMap that have been garbage collected
-(i.e., their WeakRef no longer points to an object).
-
-Returns **[RefMap](#refmap)** The current RefMap instance to allow method chaining.
-
-#### entries
-
-Executes a provided function once for each value in the RefMap. The callback
-function receives the dereferenced value, the value again (as RefMap doesn't
-use keys), and the RefMap itself. This method provides a way to iterate over
-and apply operations to the values stored in the RefMap, taking into account
-that they are weak references and may have been garbage-collected.
-
-##### Parameters
-
-*   `forEachFn` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Function to execute for each element. It
-    takes three arguments: element, element (again, as RefMap has no key), and
-    the RefMap itself.
-*   `thisArg` **any** Value to use as `this` when executing `forEachFn`.
-
-#### forEach
-
-Iterate over the items in the map and pass them to the supplied
-function ala `Map.prototype.forEach`. Note however, there are no
-indexes on Maps and as such, the index parameter of the callback
-will always be the value's key. Subsequently the `array` or third
-parameter will receive the map instance rather than an array.
-
-##### Parameters
-
-*   `forEachFn` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** the function to use for each element in
-    the set.
-*   `thisArg` **[object](#object)** the `this` argument to be applied to each
-    invocation of the `forEachFn` callback. Note, this value is unable
-    to be applied if the `forEachFn` is a big arrow function
-
-#### values
-
-Returns an iterator for the values in the RefMap. Each value is
-dereferenced from its WeakRef before being returned. This method allows
-iterating over he set's values, similar to how one would iterate over
-values in a standard Map or Array, but with the understanding that the
-values are weakly referenced and may no longer exist (in which case
-they are skipped).
-
-Returns **[Iterator](#iterator)** An iterator for the values.
-
-#### hasValue
-
-Determines whether an element with the specified value exists in the
-`RefMap`. For non-objectified sets, this method checks if the dereferenced
-values of the map include the specified value.
-
-For objectified sets, strict is set to false which uses loose
-equality to allow for things like `Object(5)` to equal `5`. This is important
-because otherwise primitives could not be weakly referenced. In the grand
-scheme of things, this is only useful if the objectified value is the
-one being referenced.
-
-##### Parameters
-
-*   `value` **any** The value to check for presence in the RefMap.
-*   `strict` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** if `true`, the default, then the supplied value
-    is hard compared to the dereferenced value (`===`). If `false`, then a
-    loose comparison is used (`==`) (optional, default `true`)
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** True if an element with the specified value exists
-in the RefMap, false otherwise.
-
-#### filter
-
-The `filter` function filters the entries of a `RefMap` object based on
-a given filter function. The dereferenced entries of the values of the map
-will be passed to the function rather than a `WeakRef` itself.
-
-A new resulting entry set will be generated and a new `RefMap` will be made
-from these entries and returned. Note that this function never returns
-`null`
-
-##### Parameters
-
-*   `filterFn` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** The `filterFn` parameter is a function that
-    will be used to filter the entries in the `RefMap`. It will be called with
-    three arguments: the value of the current entry, the key of the current
-    entry, and the `RefMap` itself. The function should return `true`
-*   `thisArg` **[object](#object)** The `thisArg` parameter is an optional argument
-    that specifies the value to be used as `this` when executing the
-    `filterFn` function. It allows you to explicitly set the context in which
-    the `filterFn` function is called. If `thisArg` is not provided, \`this
-
-Returns **[array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** The `filter` method is returning an array of filtered map
-entries
-
-#### find
-
-The `find` function iterates over a map and calls a given function on
-each value, returning the first value for which the function returns
-a truthy value.
-
-The function signature of `findFn` is
-
-    function findFn(value, key, map)
-
-'value' is passed to findFn up to two times; first with the `WeakRef`
-value, second with the result of [WeakRef.deref](WeakRef.deref). If `findFn`
-returns true for either of these the dereferenced value will be
-returned from the call to [RefMap.find](RefMap.find).
-`key` represents the key object that the value is mapped to.
-`map` is simply a reference to `this` map.
-
-##### Parameters
-
-*   `findFn`  `findFn` is a function that will be called for each
-    element in the map. It takes three arguments: `ref`, `key`, and `map`;
-    where `ref` is the value of the current element in the map, `key` is
-    the key of the current element, and `map` is a reference to the instance
-    being searched.
-*   `thisArg`  The `thisArg` parameter is the value to be used as
-    the `this` value when executing the `findFn` function. It allows you
-    to specify the context in which the `findFn` function should be called.
-
-Returns **any** the first dereferenced value that satisfies the condition
-specified by the `findFn` function. If no value satisfies the condition,
-it returns `null`.
-
-#### map
-
-Creates a new array or `RefMap` with the results of calling a provided
-function on every element in the calling `RefMap`. This method dereferences
-each value, applies the `mapFn`, and collects the results. If `toRefMap` is
-`true`, a new `RefMap` is returned; otherwise, an array. This method
-differs from `Array.map` in handling weak references and the potential to
-return a new `RefMap` instead of an array.
-
-##### Parameters
-
-*   `mapFn` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Function that produces an element of the new
-    array or `RefMap`, taking three arguments.
-*   `thisArg` **any** Value to use as this when executing mapFn.
-*   `toRefMap` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Determines if the output should be a new
-    `RefMap` (`true`) or an array (`false`).
-*   `mirrorObjectification` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** If `true` and `toRefMap` is
-    `true`, the new `RefMap` mirrors the objectification setting of the
-    original.
-
-Returns **([Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array) | [RefMap](#refmap))** A new array or `RefMap` with each element being
-the result of the `mapFn`.
-
-#### iterator
-
-The function returns an iterator that iterates over the entries of an object,
-dereferencing any weak references.
-
-Returns **[Iterator](#iterator)** A new iterator object is being returned.
-
-#### toStringTag
-
-Ensures that the constructor of this object instance's name
-is returned if the string tag for this instance is queried
-
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the name of the class
-
-### isValidReference
-
-A static method to check if a given value is a valid target for a WeakRef.
-
-#### Parameters
-
-*   `value` **any** The value to check for validity as a WeakRef target.
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** True if the value is a valid WeakRef target,
-false otherwise.
+    *   [seed](#seed)
+    *   [seed](#seed-1)
+        *   [Parameters](#parameters-16)
+    *   [toKeys](#tokeys)
+        *   [Parameters](#parameters-17)
+    *   [hasSymbols](#hassymbols)
+        *   [Parameters](#parameters-18)
+*   [SemVer](#semver)
+    *   [Parameters](#parameters-19)
+    *   [set](#set)
+        *   [Parameters](#parameters-20)
+    *   [get](#get)
+    *   [increment](#increment)
+        *   [Parameters](#parameters-21)
+    *   [decrement](#decrement)
+        *   [Parameters](#parameters-22)
+    *   [toPrimitive](#toprimitive)
+        *   [Parameters](#parameters-23)
+    *   [isEqual](#isequal)
+        *   [Parameters](#parameters-24)
+    *   [isLooselyEqual](#islooselyequal)
+        *   [Parameters](#parameters-25)
+    *   [isSemverEqual](#issemverequal)
+        *   [Parameters](#parameters-26)
+    *   [toStringTag](#tostringtag)
+    *   [major](#major)
+    *   [minor](#minor)
+    *   [patch](#patch)
+    *   [prerelease](#prerelease)
+    *   [metadata](#metadata)
+    *   [FULL](#full)
+    *   [MAJOR](#major-1)
+        *   [Examples](#examples-2)
+    *   [MINOR](#minor-1)
+        *   [Examples](#examples-3)
+    *   [PATCH](#patch-1)
+        *   [Examples](#examples-4)
+    *   [PRERELEASE](#prerelease-1)
+        *   [Examples](#examples-5)
+    *   [METADATA](#metadata-1)
+        *   [Examples](#examples-6)
+    *   [compare](#compare)
+        *   [Parameters](#parameters-27)
 
 ### Deferred
 
@@ -2181,7 +179,7 @@ allows seamless integration with code expecting Promise-like objects.
 
 #### Parameters
 
-*   `options` **[object](#object)** see above for examples on supported options, but
+*   `options` **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** see above for examples on supported options, but
     when supplied, the constructor can take instructions on how to auto
     resolve or reject the deferred created here.
 
@@ -2286,233 +284,661 @@ queried using the [Deferred.settled](Deferred.settled) getter.
 
 Type: [boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)
 
-### AsyncIterable
+### secret
 
-The AsyncIterable class extends the concept of Iterable to asynchronous
-operations. It allows creating iterable objects where each element can be
-an asynchronous entity, like a Promise. This class is particularly useful
-when dealing with asynchronous data sources, such as API responses, file
-reading in chunks, or any other data that is not immediately available but
-arrives over time.
+Sets the secret key used for signing and verifying JWT tokens.
+This method allows for updating the secret key at runtime. The new secret
+should be a string that is kept secure and not exposed to unauthorized
+entities. It is critical to ensure that the secret key is valid and kept
+confidential to maintain the integrity and security of the tokens being
+processed.
 
 #### Parameters
 
-*   `elementsOrFirstElement` **([Iterable](#iterable) | AsyncGeneratorFunction | [Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) | any)** An iterable object, an async generator function, a Promise, or the first
-    element.
-*   `moreElements` **...([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) | any)** Additional elements if the first
-    argument is not an iterable or an async generator function.
+*   `value` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function))** The new secret key to be used for JWT
+    operations.
 
-#### asyncIterator
+### secretSet
 
-Implements the async iterable protocol. When an instance of AsyncIterable
-is used in a `for await...of` loop, this async generator function is
-invoked. It yields each element as a Promise, allowing asynchronous
-iteration. Elements that are not Promises are automatically wrapped in
-a resolved Promise to ensure consistency.
+Getter for the private static member #secretSet. This property indicates
+whether the JWT secret has been set for the JWTExtension class. It is
+primarily used to check if the secret key is available before performing
+JWT operations. This getter ensures encapsulation by preventing direct
+access to the private static member.
 
-Returns **AsyncGenerator** An async generator that yields each element as
-a Promise.
+Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** True if the secret is set, false otherwise.
 
-#### toStringTag
+### init
 
-Ensures that the constructor of this object instance's name
-is returned if the string tag for this instance is queried
+Initializes the JWTExtension with a given secret key. This method is used
+to set the secret key for JWT operations at the start of the application.
+The secret key is essential for the encoding and decoding of the tokens,
+ensuring their integrity and security. The method returns the class itself,
+allowing for method chaining.
 
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the name of the class
+#### Parameters
 
-#### isAsyncIterable
+*   `secret` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The secret key used for signing and verifying JWT
+    tokens. It should be a string that is kept secure and not exposed to
+    unauthorized entities.
 
-Checks if a given value is an async iterable. This method determines if
-the provided value has a `Symbol.asyncIterator` property that is an async
-generator function. It's a precise way to identify if the value conforms
-to the async iterable protocol using an async generator function.
+Returns **JWTExtension** The JWTExtension class for method chaining.
 
-Note: This method specifically checks for async generator functions. Some
-async iterables might use regular async functions that return an async
-iterator, which this method won't identify.
+### sign
+
+Signs a payload to create a JSON Web Token (JWT). This method can be used
+synchronously or asynchronously, depending on whether a callback is
+provided. If a callback is provided, the method returns a promise and the
+callback is called with the error or the signed token. If no callback is
+provided, the token is signed synchronously and returned.
+
+Before signing, the method checks if the secret key has been set. If not,
+it throws an error to prevent the creation of an unsigned token.
+
+#### Parameters
+
+*   `payload` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String))** The data to be signed into the token.
+*   `durationOrOptions` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number))?** Either the duration
+    for which the token is valid, or an options object. If an object is
+    provided, it should conform to the options that the underlying jsonwebtoken
+    library accepts.
+*   `callback` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)?** Optional callback for Node.js style
+    asynchronous operation. Called with an error or the signed token.
+
+<!---->
+
+*   Throws **[Error](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error)** If the secret key has not been set before calling this
+    method.
+
+Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) | [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String))** If a callback is provided, a promise is
+returned that resolves with the signed token or rejects with an error. If
+no callback is provided, the signed token is returned synchronously.
+
+### decode
+
+Decodes or verifies a JSON Web Token (JWT) using a secret key. This method
+can operate synchronously or asynchronously, depending on whether a
+callback function is provided. If a callback is provided or `true` is
+passed, the method returns a promise and the callback is called with the
+error or the decoded token. If no callback is provided, the token is
+verified synchronously and the decoded token is returned.
+
+#### Parameters
+
+*   `token` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The JWT to decode or verify.
+*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Optional settings for token verification, such
+    as `secret` to override the default, `algorithms` to specify the expected
+    signing algorithm, `issuer` to check the issuer, `audience` to check the
+    audience, and others. If `decode` is set to `true` in options and `raw` is
+    true, the token is decoded without verification.
+*   `callback` **([Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function) | [boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean))?** Optional callback for Node.js style
+    asynchronous operation, or `true` to return a promise without using a
+    callback. Called with an error or the decoded token.
+
+<!---->
+
+*   Throws **[Error](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error)** If the secret key has not been set before calling this
+    method.
+
+Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) | [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String))** If a callback is provided or `true` is
+passed, a promise is returned that resolves with the decoded token or
+rejects with an error. If no callback is provided, the decoded token is
+returned synchronously.
+
+### Range
+
+Represents a numerical range with a start, end, and step value. The range
+can be inclusive or exclusive of the end value. It can be iterated over
+and can check if a value is included within the range. The start, end, and
+step can be static values or functions that return the respective values.
+The step value must be non-zero. The range can be used in for...of loops
+and other iterable contexts.
+
+#### Parameters
+
+*   `start` **([object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number))** An object containing all properties, or
+    the starting value of the range. If an object is provided, other
+    parameters are ignored.
+*   `end` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The ending value of the range. Required if `start`
+    is a number.
+*   `step` **([number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) | [function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function))** The step value between each value in
+    the range, or a function that returns the step value. Must be a non-zero
+    number or function returning a non-zero number. (optional, default `1`)
+*   `inclusive` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Determines whether the range includes
+    the end value. (optional, default `true`)
+
+#### Examples
+
+```javascript
+// Create an inclusive range from 1 to 5 with a step of 1
+const range = new Range(1, 5);
+for (const value of range) {
+  console.log(value); // Logs 1, 2, 3, 4, 5
+}
+```
+
+```javascript
+// Create an exclusive range from 10 to 20 with a step of 2
+const exclusiveRange = new Range({
+  start: 10, end: 20, step: 2, inclusive: false
+});
+for (const value of exclusiveRange) {
+  console.log(value); // Logs 10, 12, 14, 16, 18
+}
+```
+
+#### inclusive
+
+Determines whether the range includes the end value. When set to `true`,
+the range will include the end value in its set of values. When set to
+`false`, the end value is not included. This property is `true` by
+default, meaning ranges are inclusive of the end value unless
+explicitly set otherwise.
+
+Type: [boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)
+
+#### start
+
+Retrieves the starting value of the range. If the starting value is a
+function, it invokes the function and returns its result. Otherwise, it
+returns the starting value directly.
+
+Returns **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** The starting value of the range or the result of the
+starting value function.
+
+#### start
+
+Sets the starting value of the range. This value can be a number or a
+function that returns a number. If a function is provided, it will be
+invoked to determine the starting value each time the `start` property
+is accessed.
 
 ##### Parameters
 
-*   `value` **any** The value to be checked for async iterability.
+*   `value` **([number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) | [function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function))** The new starting value or a function
+    that returns the starting value.
 
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Returns true if the value is an async iterable
-implemented using an async generator function, false otherwise.
+#### end
 
-### AsyncIterator
+Retrieves the ending value of the range. If the ending value is a function,
+it invokes the function and returns its result. Otherwise, it returns the
+ending value directly.
 
-Being able to create a compliant `AsyncIterator` around any type of
-iterable object. This can be wrapped around any type of object that
-has a `[Symbol.asyncIterator]` property assigned to a generator
-function.
+Returns **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** The ending value of the range or the result of the ending
+value function.
 
-#### Parameters
+#### end
 
-*   `asyncIterable` **([object](#object) | AsyncGeneratorFunction)** any object that has a
-    `[Symbol.asyncIterable]` property assigned to a generator function or an
-    async generator function itself.
-
-#### asArray
-
-Returns a new `Array` derived from the iterable this object
-wraps.
-
-Returns **[array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** a new `Array` generated from the wrapped
-iterable. The method is generated from using an async for of
-loop.
-
-#### asyncIterable
-
-Returns the actual iterable object passed to the constructor that
-created this instance.
-
-Returns **[object](#object)** the object containing the `[Symbol.iterator]`
-
-#### next
-
-The function retrieves the next value in the iterator. If the
-the iterator has run its course, `reset()` can be invoked to
-reset the pointer to the beginning of the iteration.
-
-Returns **any** the next value
-
-#### reset
-
-Resets the async iterator to the beginning allowing it to be
-iterated over again.
-
-#### asyncIterator
-
-The existence of this symbol on the object instances, indicates that
-it can be used in `for(.. of ..)` loops and its values can be
-extracted from calls to `Array.from()`
-
-Returns **[AsyncIterable](#asynciterable)** this is returned since this object is already
-conforming to the expected JavaScript AsyncIterator interface
-
-#### toStringTag
-
-Ensures that the constructor of this object instance's name
-is returned if the string tag for this instance is queried
-
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the name of the class
-
-### Iterable
-
-The Iterable class is designed to provide a convenient way to create synchronous
-iterable objects. It can be initialized with either an array or individual elements.
-This class implements the iterable protocol, allowing instances to be used with
-`for...of` loops and other standard JavaScript iteration mechanisms.
-
-#### Parameters
-
-*   `elementsOrFirstElement` **([Iterable](#iterable) | any)** An iterable object or the
-    first element.
-*   `moreElements` **...any** Additional elements if the first argument is
-    not an iterable.
-
-#### iterator
-
-Implements the iterable protocol. When an instance of Iterable is used
-in a `for...of` loop or spread syntax, this generator function is invoked
-to yield the elements one by one in a synchronous manner.
-
-Returns **Generator** A generator that yields each element of the iterable.
-
-#### asArray
-
-Provides access to the elements as a standard array. Useful for scenarios
-where array methods and behaviors are needed.
-
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** An array containing all the elements of the iterable.
-
-#### toStringTag
-
-Ensures that the constructor of this object instance's name
-is returned if the string tag for this instance is queried
-
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the name of the class
-
-#### isIterable
-
-Checks if a given value is an iterable. This method determines if the
-provided value has a `Symbol.iterator` property that is a generator
-function. It's a precise way to identify if the value conforms to the
-iterable protocol using a generator function.
-
-Note: This method specifically checks for generator functions. Some
-iterables might use regular functions that return an iterator, which
-this method won't identify.
+Sets the ending value of the range. This value can be a number or a
+function that returns a number. If a function is provided, it will be
+invoked to determine the ending value each time the `end` property
+is accessed.
 
 ##### Parameters
 
-*   `value` **any** The value to be checked for iterability.
+*   `value` **([number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) | [function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function))** The new ending value or a function
+    that returns the ending value.
 
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Returns true if the value is an iterable implemented
-using a generator function, false otherwise.
+#### step
 
-### Iterator
+Retrieves the step value of the range. If the step value is a function,
+it invokes the function and returns its result. Otherwise, it returns the
+step value directly. This value determines the increment between each
+number in the range.
 
-Being able to create a compliant `Iterator` around any type of iterable
-object. This can be wrapped around any type of object that has a
-`[Symbol.iterator]` property assigned to a generator function.
+Returns **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** The step value of the range or the result of the step
+value function.
 
-#### Parameters
+#### step
 
-*   `iterable` **[object](#object)** any object that has a `[Symbol.iterator]`
-    property assigned to a generator function.
-*   `mapEach` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** when provided `mapEach` is a callback that
-    takes an entry as input and receives one as output.
+Sets the step value of the range. The step value determines the increment
+between each number in the range. It can be a non-zero number or a function
+that returns a non-zero number. If the provided value is zero, not a number,
+or a function that returns zero or not a number, an error is thrown.
 
-#### asArray
+##### Parameters
 
-Returns a new `Array` derived from the iterable this object
-wraps.
+*   `value` **([number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) | [function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function))** The new step value or a function that
+    returns the step value. Must not be zero or return zero.
 
-Returns **[array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** a new `Array` generated from the wrapped
-iterable. The method is generated from `Array.from()`
+<!---->
 
-#### iterable
+*   Throws **[Error](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error)** If the value is zero, not a number, or a function that
+    returns zero or not a number.
 
-Returns the actual iterable object passed to the constructor that
-created this instance.
+#### size
 
-Returns **[object](#object)** the object containing the `[Symbol.iterator]`
+Retrieves the size of the range, which is the number of steps from the
+start value to the end value. If the end value is undefined, it returns
+the number of steps from the start value to zero. The size is always
+rounded down to the nearest whole number when the end value is defined,
+and rounded to the nearest whole number in general when the end value
+is undefined.
 
-#### next
+Returns **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** The size of the range, representing the count of
+discrete steps within the range.
 
-The function retrieves the next value in the iterator. If the
-the iterator has run its course, `reset()` can be invoked to
-reset the pointer to the beginning of the iteration.
+#### each
 
-Returns **any** the next value
+Iterates over the range, executing a callback for each value in the range.
+The iteration order is from the start value to the end value, inclusive or
+exclusive based on the 'inclusive' property. If 'inclusive' is true, the
+end value is included in the iteration; otherwise, it is excluded. The
+iteration step is determined by the 'step' property. If the start value is
+less than the end value, the iteration is in ascending order; if the start
+value is greater than the end value, the iteration is in descending order.
 
-#### reset
+##### Parameters
 
-Resets the iterator to the beginning allowing it to be
-iterated over again.
+*   `callback` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** The function to execute for each value in the
+    range. It receives the current value as an argument.
+
+#### includes
+
+Determines whether a given value is included in the range. If the range's
+end value is not a number (NaN), it checks if the start value is equal to
+the given value. If the end value is a number, it checks if the given value
+is between the start and end values, and if the difference between the start
+value and the given value is an exact multiple of the step value. This
+method takes into account whether the range is inclusive of the end value.
+
+##### Parameters
+
+*   `val` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** The value to check for inclusion in the range.
+
+Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** True if the value is included in the range, false
+otherwise.
 
 #### iterator
 
-The existence of this symbol on the object instances, indicates that
-it can be used in `for(.. of ..)` loops and its values can be
-extracted from calls to `Array.from()`
+Creates an iterator that yields each value in the range according to the
+start, end, and step properties. The iterator can be used in for...of loops
+and other constructs that consume iterables. If the range is inclusive, the
+end value is yielded; otherwise, it is not. The iteration respects the
+direction of the range, ascending or descending, based on the start and end
+values.
 
-Returns **[Iterator](#iterator)** this is returned since this object is already
-conforming to the expected JavaScript Iterator interface
+### Singleton
+
+The Singleton class is a design pattern that ensures only one instance of a
+class is created and provides a way to access that instance.
+
+#### \_\_instanceMap
+
+Static map of all instances of the Singleton. Any class that extends Singleton
+and has its `shared` property retrieved will be stored here with the class
+as the key and the single shared instance as the value.
+
+#### shared
+
+The function returns a shared instance of a class, creating a new instance if
+one does not already exist.
+
+Returns **any** The shared instance of the Singleton class.
+
+#### species
+
+The above function returns the constructor function of the current object.
+This is crucial to allow other classes that are to extend from Singleton to
+have their
+
+Returns **any** The `this` keyword is being returned.
+
+### trimLeading
+
+Creates a template function for processing string literals with embedded
+expressions. This function can optionally trim leading whitespace from each
+line of the string based on the indentation of the first non-empty line.
+
+#### Parameters
+
+*   `applyIndent`   (optional, default `0`)
+*   `metadata`   (optional, default `undefined`)
+*   `trimLeading` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** When true, trims the leading whitespace
+    from each line of the string to match the indentation of the first non-empty
+    line. When false, it leaves the string as-is. (optional, default `true`)
+
+#### Examples
+
+```javascript
+// Usage with template literal:
+const trim = trimLeading();
+const result = trim`
+  Line 1
+  Line 2
+  Line 3
+`;
+// result is "Line 1\n Line 2\nLine 3"
+```
+
+Returns **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** A template function that takes a template literal and
+its embedded expressions as arguments. The function processes the template
+literal, optionally trims leading whitespace, and returns the resulting
+string.
+
+### Hasher
+
+A simple Hasher implementation in JavaScript. This mimics the behavior of Swift's
+Hasher to some extent. It uses the djb2 algorithm for hashing.
+
+#### Parameters
+
+*   `values` **...any** The "values" parameter is a rest parameter that allows you to
+    pass in multiple arguments to the constructor. It can accept any number of
+    arguments, and each argument can be of any type. The arguments are passed as
+    an array-like object called "arguments" within the constructor function.
+
+#### add
+
+Adds the given value into the hasher.
+
+##### Parameters
+
+*   `values` **...any**&#x20;
+*   `value` **([number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) | [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String))** The value to hash. If the value is not a number
+    nor a string, then it will be converted into a string
+
+#### hash
+
+The function returns the absolute value of a hash code as a base-36 string.
+
+Returns **any** The method is returning the absolute value of the private property
+`hash` converted to a base-36 string.
+
+#### reset
+
+The function "reset" sets the value of the private property "hash" to 5381.
+
+#### seed
+
+The above function returns the value of the private variable "seed".
+
+Returns **any** The seed value of the object.
+
+#### seed
+
+The above function sets the value of the seed property.
+
+##### Parameters
+
+*   `newValue`  newValue is the new value that will be assigned to the seed
+    property.
+
+#### toKeys
+
+The function "toKeys" converts the keys of an object into an array of strings.
+
+##### Parameters
+
+*   `object`  The `object` parameter is the object for which we want to get
+    the keys.
+
+Returns **any** an array of strings that represent the keys of the input object.
+
+#### hasSymbols
+
+The function "hasSymbols" checks if an array contains any symbols and
+returns true if it does, false otherwise.
+
+##### Parameters
+
+*   `array`  The parameter "array" is expected to be an array.
+
+Returns **any** a boolean value. It returns true if the input array contains at
+least one symbol, and false otherwise.
+
+### SemVer
+
+Represents a semantic version (semver) and provides utility methods for
+managing and comparing versions according to the semver specification.
+
+#### Parameters
+
+*   `semverString` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The initial semantic version string. (optional, default `"0.0.0"`)
+*   `part` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** by default this is set to `*` which indicates that
+    the entire `semverString` is to be parsed. If the `part` is the name of a property
+    matching one of \[`major`, `minor`, `patch`, `prerelease` or `metadata`] then
+    only that portion of the version is set. For major, minor and patch, the value
+    will be parsed into an integer. If an unknown key is specified, the entire
+    string will be processed. (optional, default `"*"`)
+
+#### set
+
+Sets the version based on a semver string. This method parses the string
+and updates the major, minor, patch, prerelease, and metadata parts of the
+version accordingly.
+
+##### Parameters
+
+*   `semverString` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The semver string to parse and set.
+*   `part`   (optional, default `'*'`)
+
+<!---->
+
+*   Throws **[Error](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error)** If semverString is not a string or not in valid semver format.
+
+#### get
+
+Retrieves the full version string in semver format. Constructs the version
+string including the major, minor, patch versions, and optionally the
+prerelease and metadata parts if they are present.
+
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The full version string in semver format.
+
+#### increment
+
+Increments part of the SemVer instance by the indicated amount.
+
+##### Parameters
+
+*   `version` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the portion of the version to increment. Valid values
+    are `major`, `minor` or `patch`.
+*   `by` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** the amount by which the version is incremented. This
+    defaults to 1. (optional, default `1`)
+
+Returns **[SemVer](#semver)** the `this` instance for further chaining
+
+#### decrement
+
+Decrements part of the SemVer instance by the indicated amount.
+
+##### Parameters
+
+*   `version` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the portion of the version to decrement. Valid values
+    are `major`, `minor` or `patch`.
+*   `by` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** the amount by which the version is decremented. This
+    defaults to 1. (optional, default `1`)
+
+Returns **[SemVer](#semver)** the `this` instance for further chaining
+
+#### toPrimitive
+
+Converts the version to a primitive value based on the context. When
+converting to a number, only the major and minor parts are considered.
+When converting to a string, the full semver string is returned.
+
+##### Parameters
+
+*   `hint` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The context in which conversion is requested ("number"
+    or "string").
+
+Returns **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) | null)** The converted value.
+
+#### isEqual
+
+Determines if this version is exactly equal to another version. This
+comparison includes the major, minor, patch, prerelease, and metadata
+parts of the version. It's a strict comparison where all parts must match.
+
+##### Parameters
+
+*   `otherVersion` **[SemVer](#semver)** The other SemVer instance to compare with.
+
+Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** True if all version components are exactly equal.
+
+#### isLooselyEqual
+
+Checks if this version is equal to another version based only on the major,
+minor, and patch numbers. This method ignores the prerelease and metadata
+parts of the version, making it a "loose" or "lenient" comparison. It is
+useful for determining compatibility or disregarding build and pre-release
+details.
+
+##### Parameters
+
+*   `otherVersion` **[SemVer](#semver)** The other SemVer instance to compare with.
+
+Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** True if major, minor, and patch numbers are equal.
+
+#### isSemverEqual
+
+Compares this version to another version according to semver equality
+rules. In semver, two versions are considered equal if they have the same
+major, minor, and patch numbers. This method also considers prerelease
+tags but ignores build metadata. For example, "1.0.0-alpha" and
+"1.0.0-alpha+build" are considered equal.
+
+##### Parameters
+
+*   `otherVersion` **[SemVer](#semver)** The other SemVer instance to compare with.
+
+Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** True if versions are considered equal in semver terms.
 
 #### toStringTag
 
-Ensures that the constructor of this object instance's name
-is returned if the string tag for this instance is queried
+Provides a custom tag when the object is converted to a string. This
+method overrides the default behavior to return the class name instead
+of the generic "Object" tag.
 
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the name of the class
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The class name "SemVer".
 
-### mapEach
+#### major
 
-A private function that when provided has the following signature:
-`function mapEach(entry) -> entry`. This allows any changes to be made
-to each element, conditionally and programmatically, as needed before
-they are returned to the called code.
+The primary version number for this SemVer instance. This version of the
+instance, when bumped, indicates likely breaking changes or at least a
+semmantic separation from previous major revisions
+
+Type: [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)
+
+#### minor
+
+The minor version number for this SemVer instance. This version of the instance,
+when bumped, usually indicates that new features are present. It is expected,
+however, that minor bump versions are backwards compatible.
+
+Type: [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)
+
+#### patch
+
+The patch version number for this SemVer instance. This version of the instance,
+when bumped, usually indicates that some fix has been applied but that there are
+no new features or breaking changes. These should usually be taken greedily.
+
+#### prerelease
+
+This is prerelease string indicator. Usually this has a value like "alpha" or
+"beta". A SemVer value with a prerelease indicator might look like "1.0.0-beta"
+indicating, in this example, that it is a beta release for 1.0.0.
+
+Type: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)
+
+#### metadata
+
+The metadata string portion of a SemVer version is a note to the consumer but
+may not have any real bearing on changes. This is a human readable version. A
+metadata portion may show up in a SemVer string as "1.0.0-beta+001". In this
+case maybe providing an iteration value. It can be any string. It is only usually
+compared in version comparisons, in the strictest compares.
+
+Type: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)
+
+#### FULL
+
+The `FULL` constant can be passed as a second parameter, inspite of it being
+the default value, to the `.set()` method on `SemVer` instances. It indicates
+that the full SemVer string should be parsed and set.
+
+Type: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)
+
+#### MAJOR
+
+The `MAJOR` constant can be used as a parameter to `set()`, `increment()`,
+and `decrement()` methods. It points to the major semver version number.
+
+Type: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)
+
+##### Examples
+
+```javascript
+semver.increment(SemVer.MAJOR).get()
+```
+
+#### MINOR
+
+The `MINOR` constant can be used as a parameter to `set()`, `increment()`,
+and `decrement()` methods. It points to the minor semver version number.
+
+Type: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)
+
+##### Examples
+
+```javascript
+semver.increment(SemVer.MINOR).get()
+```
+
+#### PATCH
+
+The `PATCH` constant can be used as a parameter to `set()`, `increment()`,
+and `decrement()` methods. It points to the patch semver version number.
+
+Type: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)
+
+##### Examples
+
+```javascript
+semver.increment(SemVer.PATCH).get()
+```
+
+#### PRERELEASE
+
+The `PRERELEASE` constant can be used as a parameter to `set()` method. It
+points to the pre-release semver version text.
+
+Type: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)
+
+##### Examples
+
+```javascript
+semver.set("beta", SemVer.PRERELEASE).get()
+```
+
+#### METADATA
+
+The `METADATA` constant can be used as a parameter to `set()` method. It
+points to the metadata semver version text.
+
+Type: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)
+
+##### Examples
+
+```javascript
+semver.set("bries_release", SemVer.METADATA).get()
+```
+
+#### compare
+
+Compares two semver strings for semver equality. This static method allows
+for a direct comparison without needing to create SemVer instances
+externally. It is useful for quick comparisons where instantiation of
+objects is not necessary.
+
+##### Parameters
+
+*   `leftVersion` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The first version string to compare.
+*   `rightVersion` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The second version string to compare.
+
+Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** True if the versions are semver equal according to
+the isSemverEqual method.
 
 ## Contributing
 
