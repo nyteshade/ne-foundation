@@ -1,0 +1,20 @@
+repo_name: nyteshade/ne-foundation
+report_id: 30a7efe42ba0c10c3bc0d8761c77fcbd
+version: 0.1
+repo_type: Public
+timestamp: '2024-03-08T19:22:19+00:00'
+requested_by: nyteshade
+provider: github
+branch: main
+detected_tools_count: 1
+tools:
+- name: Git
+  description: Fast, scalable, distributed revision control system
+  website_url: http://git-scm.com/
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Version Control System
+  image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source_url: https://github.com/nyteshade/ne-foundation
+  detection_source: Repo Metadata
