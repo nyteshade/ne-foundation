@@ -1,48 +1,48 @@
 
-export const kHTMLEvent = Symbol.for('HTML.Event');
-export const kHTMLEventPrototypeProxy = Symbol.for('HTML.Event.PrototypeProxy');
-export const kHTMLEventContext = Symbol.for('HTML.Event.Context');
+export const kHTMLEvent = Symbol.for('HTML.Event')
+export const kHTMLEventPrototypeProxy = Symbol.for('HTML.Event.PrototypeProxy')
+export const kHTMLEventContext = Symbol.for('HTML.Event.Context')
 
 // should use Zod for ensuring datatypes, for now this is pretty raw
 const isInstOf = (obj, type) => (
   type === Array && Array.isArray(obj) || obj instanceof type
-);
+)
 
-const kUndefined = 'undefined';
-const kObject = 'object';
-const kBoolean = 'boolean';
-const kNumber = 'number';
-const kBigInt = 'bigint';
-const kString = 'string';
-const kSymbol = 'symbol';
-const kFunction = 'function';
+const kUndefined = 'undefined'
+const kObject = 'object'
+const kBoolean = 'boolean'
+const kNumber = 'number'
+const kBigInt = 'bigint'
+const kString = 'string'
+const kSymbol = 'symbol'
+const kFunction = 'function'
 
 const isTypeOf = (obj, type, doubleOkay = false, isNonNullish = true) => (
   ((isNonNullish && (obj !== null && obj !== undefined)) || !isNonNullish) &&
   (doubleOkay ? (typeof obj == type) : (typeof obj === type))
-);
+)
 
-const isObj = (val) => isTypeOf(val, kObject);
-const isStr = (val) => isTypeOf(val, kString) || isInstOf(val, String);
-const isSym = (val) => isTypeOf(val, kSymbol);
-const isNum = (val) => isTypeOf(val, kNumber);
-const isBigInt = (val) => isTypeOf(val, kBigInt);
-const isFun = (val) => isTypeOf(val, kFunction);
+const isObj = (val) => isTypeOf(val, kObject)
+const isStr = (val) => isTypeOf(val, kString) || isInstOf(val, String)
+const isSym = (val) => isTypeOf(val, kSymbol)
+const isNum = (val) => isTypeOf(val, kNumber)
+const isBigInt = (val) => isTypeOf(val, kBigInt)
+const isFun = (val) => isTypeOf(val, kFunction)
 const isBool = (val) => (
   isTypeOf(val, kBoolean) || (isNum(val) && (val === 0 || val === 1))
 )
 const isKey = (val) => (
   isOneTypeOf(val, kString, kSymbol) ||
   isOneInstOf(val, String, Number)
-);
+)
 
 const isOneInstOf = (val, ...types) => (
-  types.some(type => isInstOf(val, type))
+  types.some((type) => isInstOf(val, type))
 )
 
 const isOneTypeOf = (val, ...types) => (
-  types.some(type => isTypeOf(val, type))
-);
+  types.some((type) => isTypeOf(val, type))
+)
 
 const hasIsProp = (val, prop, value) => (
   isObj(val) && Reflect.has(val, prop) && val[prop] === (
@@ -52,7 +52,7 @@ const hasIsProp = (val, prop, value) => (
 
 const isHTMLEventContext = (obj) => (
   obj && isObj(obj) && obj?.['class'] === 'HTMLEventContext'
-);
+)
 
 const isHTMLEventContextParams = (obj) => (
   (isInstOf(obj, Array) && obj.length >= 3) &&
@@ -86,14 +86,14 @@ export const HTML = new Proxy(
       const params = [
         'name', 'style', 'attributes', 'webComponentName', 'content',
         'useDocument', 'children',
-      ];
+      ]
 
       let _opts = (
         // Check to see if we have individual parameters or a config object
         // they would be in content and content must be a non null object type
         // it must also contain any of the parameters by name.
         (typeof content === 'object' && content !== null) &&
-        params.some(param => Reflect.has(content, param))
+        params.some((param) => Reflect.has(content, param))
 
         // we have a config object; what was passed to the content parameter is it
         ? content
@@ -102,7 +102,7 @@ export const HTML = new Proxy(
         : {
           style, attributes, content, webComponentName, useDocument, children
         }
-      );
+      )
 
       // Validate each parameter is in a usable state for going forward with
       // defaults for unsupplied values
@@ -113,34 +113,34 @@ export const HTML = new Proxy(
         webComponentName: _opts.webComponentName,
         useDocument: _opts.useDocument ?? document,
         children: _opts.children ?? []
-      };
+      }
 
-      const doc = _opts.useDocument;
+      const doc = _opts.useDocument
       const options = _opts.webComponentName
         ? { is: _opts.webComponentName }
-        : undefined;
-      const element = doc.createElement(name, options);
+        : undefined
+      const element = doc.createElement(name, options)
 
-      HTML[kHTMLEventPrototypeProxy](element);
+      HTML[kHTMLEventPrototypeProxy](element)
 
       for (const [key, value] of Object.entries(_opts.attributes)) {
-        element.setAttribute(key, value);
+        element.setAttribute(key, value)
       }
 
       for (const [key, value] of Object.entries(_opts.style)) {
-        element.style[key] = value;
+        element.style[key] = value
       }
 
       // avoid this for non-text values
       if (typeof _opts.content === 'string') {
-        element.innerHTML = _opts.content;
+        element.innerHTML = _opts.content
       }
 
       for (const child of _opts.children) {
-        element.append(child);
+        element.append(child)
       }
 
-      return element;
+      return element
     }
 
     static [kHTMLEventContext] = class HTMLEventContext {
@@ -151,8 +151,8 @@ export const HTML = new Proxy(
       options;
 
       constructor(onElement, type, listener, options) {
-        const useCapture = typeof options !== 'object' && !!options;
-        const opts = typeof options === 'object' && options;
+        const useCapture = typeof options !== 'object' && !!options
+        const opts = typeof options === 'object' && options
 
         Object.assign(this, {
           element: onElement,
@@ -160,7 +160,7 @@ export const HTML = new Proxy(
           listener,
           useCapture,
           options: opts
-        });
+        })
       }
 
       remove(options) {
@@ -170,7 +170,7 @@ export const HTML = new Proxy(
           this.type,
           this.listener,
           options
-        );
+        )
       }
 
       apply() {
@@ -180,11 +180,11 @@ export const HTML = new Proxy(
           this.type,
           this.listener,
           this.useCapture ?? this.options
-        );
+        )
       }
 
       fire(type, detail) {
-        return this.element.dispatchEvent(new CustomEvent(type, detail));
+        return this.element.dispatchEvent(new CustomEvent(type, detail))
       }
 
       get [Symbol.toStringTag]() { return this.constructor[`class`] }
@@ -194,89 +194,89 @@ export const HTML = new Proxy(
     }
 
     static [kHTMLEventPrototypeProxy](element) {
-      const HTMLEventContext = HTML[kHTMLEventContext];
+      const HTMLEventContext = HTML[kHTMLEventContext]
 
-      const prototype = element?.constructor?.prototype ?? Element.prototype;
-      const definedEvents = {};
+      const prototype = element?.constructor?.prototype ?? Element.prototype
+      const definedEvents = {}
 
       const eventProxy = new Proxy(definedEvents, {
         get(target, property, receiver) {
           if (Reflect.has(definedEvents, property)) {
-            const context = definedEvents[property];
-            return context.listener;
+            const context = definedEvents[property]
+            return context.listener
           }
-          return Reflect.get(target, property, receiver);
+          return Reflect.get(target, property, receiver)
         },
 
         deleteProperty(target, property) {
           if (!Reflect.has(definedEvents, property)) {
-            return false;
+            return false
           }
           else if (Reflect.has(definedEvents, property)) {
-            definedEvents[property].remove();
-            return delete definedEvents[property];
+            definedEvents[property].remove()
+            return delete definedEvents[property]
           }
 
-          return Reflect.deleteProperty(target, property);
+          return Reflect.deleteProperty(target, property)
         },
 
         set(target, property, newValue, _) {
-          let context = undefined;
+          let context = undefined
 
           if (isHTMLEventContext(newValue)) {
-            definedEvents[property] = newValue;
-            context = newValue;
+            definedEvents[property] = newValue
+            context = newValue
           }
           else if (newValue instanceof Function) { // HTMLEventListener
-            context = new HTMLEventContext(element, property, newValue);
+            context = new HTMLEventContext(element, property, newValue)
           }
           else if (isHTMLEventContextParams(newValue)) {
-            const [element, type, listener, options] = newValue;
-            context = new HTMLEventContext(element, type, listener, options);
+            const [element, type, listener, options] = newValue
+            context = new HTMLEventContext(element, type, listener, options)
           }
           else if (isHTMLEventContextConfig(newValue)) {
-            const {onElement, type, listener, options} = newValue;
-            context = new HTMLEventContext(element, type, listener, options);
+            const {onElement, type, listener, options} = newValue
+            context = new HTMLEventContext(element, type, listener, options)
           }
 
           if (context) {
-            definedEvents[property] = context;
-            context.apply();
-            return true;
+            definedEvents[property] = context
+            context.apply()
+            return true
           }
 
-          return false;
+          return false
         },
-      });
+      })
 
       const prototypeProxy = new Proxy(prototype, {
         get(target, prototype, receiver) {
           if (prototype === 'event') {
-            return eventProxy;
+            return eventProxy
           }
-          return Reflect.get(target, prototype, receiver);
+          return Reflect.get(target, prototype, receiver)
         }
-      });
+      })
 
       Object.defineProperty(element, 'originalPrototype', {
         value: prototype,
         enumerable: false,
         configurable: true,
         writable: true
-      });
+      })
 
-      Object.setPrototypeOf(element, prototypeProxy);
+      Object.setPrototypeOf(element, prototypeProxy)
 
-      return element;
+      return element
     }
   },
   {
     get(target, property, receiver) {
       if (typeof property === 'string' && property !== 'create') {
-        return HTML.create.bind(HTML, property);
+        return HTML.create.bind(HTML, property)
       }
 
-      return Reflect.get(target, property, receiver);
+      return Reflect.get(target, property, receiver)
     }
   }
-);
+)

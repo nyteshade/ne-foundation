@@ -125,7 +125,7 @@ export class Deferred extends Promise {
     }
 
     // Create an empty object to store the resolve and reject functions
-    let _resolve, _reject;
+    let _resolve, _reject
 
     // Create a new promise and assign its resolve and reject functions to resolvers
     super((resolve, reject) =>{

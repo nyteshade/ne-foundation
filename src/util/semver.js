@@ -38,7 +38,7 @@ export class SemVer {
     const { MAJOR, MINOR, PATCH, PRERELEASE, METADATA, FULL } = SemVer
 
     if (typeof semverString !== 'string') {
-      throw new Error('semverString must be a string');
+      throw new Error('semverString must be a string')
     }
 
     if (part !== FULL) {
@@ -53,25 +53,25 @@ export class SemVer {
       }
     }
 
-    const [versionPart, prereleaseAndMetadata] = semverString.split('+');
-    const [version, prerelease] = versionPart.split('-');
-    const [major, minor, patch] = version.split('.').map(Number);
+    const [versionPart, prereleaseAndMetadata] = semverString.split('+')
+    const [version, prerelease] = versionPart.split('-')
+    const [major, minor, patch] = version.split('.').map(Number)
 
     if (version.split('.').length !== 3) {
-      throw new Error('Version must be in the format major.minor.patch');
+      throw new Error('Version must be in the format major.minor.patch')
     }
 
     if ([major, minor, patch].some(num => num < 0 || isNaN(num))) {
-      throw new Error('Major, minor, and patch versions must be non-negative integers');
+      throw new Error('Major, minor, and patch versions must be non-negative integers')
     }
 
-    this.major = major;
-    this.minor = minor;
-    this.patch = patch;
-    this.prerelease = prerelease || '';
+    this.major = major
+    this.minor = minor
+    this.patch = patch
+    this.prerelease = prerelease || ''
     this.metadata = prereleaseAndMetadata && prereleaseAndMetadata !== prerelease
       ? prereleaseAndMetadata
-      : '';
+      : ''
   }
 
   /**
@@ -82,14 +82,14 @@ export class SemVer {
    * @returns {string} The full version string in semver format.
    */
   get() {
-    let semverString = `${this.major}.${this.minor}.${this.patch}`;
+    let semverString = `${this.major}.${this.minor}.${this.patch}`
     if (this.prerelease) {
-      semverString += `-${this.prerelease}`;
+      semverString += `-${this.prerelease}`
     }
     if (this.metadata) {
-      semverString += `+${this.metadata}`;
+      semverString += `+${this.metadata}`
     }
-    return semverString;
+    return semverString
   }
 
   /**
@@ -144,11 +144,11 @@ export class SemVer {
   [Symbol.toPrimitive](hint) {
     switch (hint) {
       case 'number':
-        return parseFloat(`${this.major}.${this.minor}`);
+        return parseFloat(`${this.major}.${this.minor}`)
       case 'string':
-        return this.get();
+        return this.get()
       default:
-        return null;
+        return null
     }
   }
 
@@ -165,7 +165,7 @@ export class SemVer {
            this.minor === otherVersion.minor &&
            this.patch === otherVersion.patch &&
            this.prerelease === otherVersion.prerelease &&
-           this.metadata === otherVersion.metadata;
+           this.metadata === otherVersion.metadata
   }
 
   /**
@@ -181,7 +181,7 @@ export class SemVer {
   isLooselyEqual(otherVersion) {
     return this.major === otherVersion.major &&
            this.minor === otherVersion.minor &&
-           this.patch === otherVersion.patch;
+           this.patch === otherVersion.patch
   }
 
   /**
@@ -198,7 +198,7 @@ export class SemVer {
     return this.major === otherVersion.major &&
            this.minor === otherVersion.minor &&
            this.patch === otherVersion.patch &&
-           this.prerelease === otherVersion.prerelease;
+           this.prerelease === otherVersion.prerelease
   }
 
   /**

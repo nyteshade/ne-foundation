@@ -38,6 +38,6 @@ export class Singleton {
    * @returns The `this` keyword is being returned.
    */
   static get [Symbol.species]() {
-    return this;
+    return this
   }
 }

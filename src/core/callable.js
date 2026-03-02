@@ -53,61 +53,62 @@ export class Callable {
    * // For a method in an object
    * const obj = {
    *   greet() {
-   *     console.log('Hello, world!');
+   *     console.log('Hello, world!')
    *   }
-   * };
-   * const callable = new Callable(obj, 'greet');
-   * callable(); // Outputs: Hello, world!
+   * }
+   * const callable = new Callable(obj, 'greet')
+   * callable() // Outputs: Hello, world!
    *
    * @example
    * // For a standalone function
    * function greet() {
-   *   console.log('Hello, world!');
+   *   console.log('Hello, world!')
    * }
-   * const callable = new Callable({}, greet);
-   * callable(); // Outputs: Hello, world!
+   * const callable = new Callable({}, greet)
+   * callable() // Outputs: Hello, world!
    */
   constructor(object, callablePropertyOrFunction) {
-    this.targetFunction = undefined;
+    this.targetFunction = undefined
 
     // Validate that the first parameter is an object
     if (Object(object) !== object) {
-      throw new Error("Supplied object parameter must be an object.");
+      throw new Error('Supplied object parameter must be an object.')
     }
 
     // Determine if the callable is a function or a method of the object
-    if (typeof callablePropertyOrFunction !== "function") {
+    if (typeof callablePropertyOrFunction !== 'function') {
       // Attempt to retrieve the method from the object
-      this.targetFunction = object[callablePropertyOrFunction];
+      this.targetFunction = object[callablePropertyOrFunction]
       if (!this.targetFunction) {
         throw new Error(
-          "Cannot find function to invoke when object is called.",
-        );
+          'Cannot find function to invoke when object is called.'
+        )
       }
-    } else {
+    }
+    else {
       // Directly use the provided function
-      this.targetFunction = callablePropertyOrFunction;
+      this.targetFunction = callablePropertyOrFunction
     }
 
     // If the target function is a big arrow function, convert it to
     // a bindable function. Note that big arrow functions will receive
     // the handler as its first parameter; so account for that.
-    if (!Reflect.has(this.targetFunction, "prototype")) {
-      const arrowFunction = this.targetFunction;
+    if (!Reflect.has(this.targetFunction, 'prototype')) {
+      const arrowFunction = this.targetFunction
 
       this.targetFunction = function (...args) {
-        return arrowFunction(this, ...args);
-      };
+        return arrowFunction(this, ...args)
+      }
     }
 
     // Store the object to bind the callable to
-    this.handler = object;
+    this.handler = object
 
     // Create and return a proxy that wraps the callable
     return new Proxy(
       (...args) => this.targetFunction.apply(this.handler, args),
       this.#proxyTraps(this.handler, this.targetFunction),
-    );
+    )
   }
 
   #proxyTraps(handler, actualCallable) {
@@ -130,15 +131,15 @@ export class Callable {
        * @example
        * // Assuming `callableProxy` is an instance of a class that uses this
        * // proxy trap and `handler` has a property `exampleProperty`:
-       * const value = callableProxy.exampleProperty;
+       * const value = callableProxy.exampleProperty
        * // `value` is the value of `exampleProperty` from `handler`.
        */
       get(_, property, receiver) {
-        if (property === Callable.kHandler) return handler;
+        if (property === Callable.kHandler) return handler
 
-        if (property === Callable.kFunction) return actualCallable;
+        if (property === Callable.kFunction) return actualCallable
 
-        return Reflect.get(handler, property, receiver);
+        return Reflect.get(handler, property, receiver)
       },
 
       /**
@@ -160,11 +161,11 @@ export class Callable {
        * @example
        * // Assuming `callableProxy` is an instance of a class that uses this
        * // proxy trap and `handler` is the object being proxied:
-       * callableProxy.someProperty = 'newValue';
+       * callableProxy.someProperty = 'newValue'
        * // This sets `someProperty` on `handler` to 'newValue'.
        */
       set(_, property, value, receiver) {
-        return Reflect.set(handler, property, value, receiver);
+        return Reflect.set(handler, property, value, receiver)
       },
 
       /**
@@ -182,11 +183,11 @@ export class Callable {
        * @example
        * // Assuming `callableProxy` is an instance of a class that uses this
        * // proxy trap and `handler` has a property `exampleProperty`:
-       * const hasProperty = 'exampleProperty' in callableProxy;
+       * const hasProperty = 'exampleProperty' in callableProxy
        * // `hasProperty` is true if `exampleProperty` exists on `handler`.
        */
       has(_, property) {
-        return Reflect.has(handler, property);
+        return Reflect.has(handler, property)
       },
 
       /**
@@ -204,11 +205,11 @@ export class Callable {
        * @example
        * // Assuming `callableProxy` is an instance of a class that uses this
        * // proxy trap and `handler` has a property `exampleProperty`:
-       * delete callableProxy.exampleProperty;
+       * delete callableProxy.exampleProperty
        * // The `exampleProperty` is deleted from `handler`.
        */
       deleteProperty(target, property) {
-        return Reflect.deleteProperty(this.handler, property);
+        return Reflect.deleteProperty(this.handler, property)
       },
 
       /**
@@ -227,11 +228,11 @@ export class Callable {
        * @example
        * // Assuming `callableProxy` is an instance of a class that uses this
        * // proxy trap and `myFunction` is the `actualCallable`:
-       * const result = callableProxy.apply(null, [arg1, arg2]);
+       * const result = callableProxy.apply(null, [arg1, arg2])
        * // `result` is the return value of `myFunction(arg1, arg2)`.
        */
       apply(_, thisArg, argumentsList) {
-        return actualCallable.call(handler || thisArg, ...argumentsList);
+        return actualCallable.call(handler || thisArg, ...argumentsList)
       },
 
       /**
@@ -248,11 +249,11 @@ export class Callable {
        * @example
        * // Assuming `callableProxy` is an instance of a class that uses this
        * // proxy trap and `MyClass` is the `actualCallable`:
-       * const instance = new callableProxy(arg1, arg2);
+       * const instance = new callableProxy(arg1, arg2)
        * // `instance` is an instance of `MyClass` created with `arg1` and `arg2`.
        */
       construct(_, argumentsList, newTarget) {
-        return new actualCallable(...argumentsList);
+        return new actualCallable(...argumentsList)
       },
 
       /**
@@ -270,11 +271,11 @@ export class Callable {
        * @example
        * // Assuming `callableProxy` is an instance of a class that uses this
        * // proxy trap and `handler` is the internal handler object:
-       * const handlerPrototype = Object.getPrototypeOf(callableProxy);
+       * const handlerPrototype = Object.getPrototypeOf(callableProxy)
        * // `handlerPrototype` will be the prototype of the `handler` object.
        */
       getPrototypeOf(_) {
-        return Reflect.getPrototypeOf(handler);
+        return Reflect.getPrototypeOf(handler)
       },
 
       /**
@@ -293,12 +294,12 @@ export class Callable {
        * @example
        * // Assuming `callableProxy` is an instance of a class that uses this
        * // proxy trap and `handler` is the internal handler object:
-       * const newProto = { someMethod() {} };
-       * const result = Object.setPrototypeOf(callableProxy, newProto);
+       * const newProto = { someMethod() {} }
+       * const result = Object.setPrototypeOf(callableProxy, newProto)
        * // `result` will be `true` if the prototype was successfully set.
        */
       setPrototypeOf(_, prototype) {
-        return Reflect.setPrototypeOf(handler, prototype);
+        return Reflect.setPrototypeOf(handler, prototype)
       },
 
       /**
@@ -316,12 +317,12 @@ export class Callable {
        * @example
        * // Assuming `callableProxy` is an instance of a class that uses this
        * // proxy trap and `handler` is the internal handler object:
-       * const canExtend = Object.isExtensible(callableProxy);
+       * const canExtend = Object.isExtensible(callableProxy)
        * // `canExtend` will be `true` if properties can still be added to
        * // the `handler` object.
        */
       isExtensible(target) {
-        return Reflect.isExtensible(handler);
+        return Reflect.isExtensible(handler)
       },
 
       /**
@@ -339,12 +340,12 @@ export class Callable {
        * @example
        * // Assuming `callableProxy` is an instance of a class that uses this
        * // proxy trap and `handler` is the internal handler object:
-       * const result = Object.preventExtensions(callableProxy);
+       * const result = Object.preventExtensions(callableProxy)
        * // `result` will be `true` if `handler` was successfully made
        * // non-extensible.
        */
       preventExtensions(target) {
-        return Reflect.preventExtensions(handler);
+        return Reflect.preventExtensions(handler)
       },
 
       /**
@@ -369,12 +370,12 @@ export class Callable {
        * const descriptor = Object.getOwnPropertyDescriptor(
        *   callableProxy,
        *   'prop'
-       * );
+       * )
        * // `descriptor` will contain the property descriptor of 'prop' if it
        * // exists on the `handler` object.
        */
       getOwnPropertyDescriptor(target, property) {
-        return Object.getOwnPropertyDescriptor(target, property);
+        return Object.getOwnPropertyDescriptor(target, property)
       },
 
       /**
@@ -402,12 +403,12 @@ export class Callable {
        *   writable: true,
        *   enumerable: true,
        *   configurable: true
-       * });
+       * })
        * // The property 'newProp' is now defined on the `handler` object with
        * // the value 42.
        */
       defineProperty(target, property, descriptor) {
-        return Reflect.defineProperty(handler, property, descriptor);
+        return Reflect.defineProperty(handler, property, descriptor)
       },
 
       /**
@@ -422,13 +423,13 @@ export class Callable {
        * @example
        * // Assuming `callableInstance` is an instance of a class that uses
        * // this proxy trap:
-       * const keys = Object.keys(callableInstance);
+       * const keys = Object.keys(callableInstance)
        * // `keys` will contain all own property keys of `callableInstance`.
        */
       ownKeys(target) {
-        return Reflect.ownKeys(handler);
+        return Reflect.ownKeys(handler)
       },
-    };
+    }
   }
 
   /**
@@ -442,26 +443,26 @@ export class Callable {
    *
    * @example
    * // If the object has a name property
-   * const callable = new Callable();
-   * callable.object = { name: 'MyCallable' };
-   * console.log(Object.prototype.toString.call(callable));
+   * const callable = new Callable()
+   * callable.object = { name: 'MyCallable' }
+   * console.log(Object.prototype.toString.call(callable))
    * // expected output: "[object MyCallable]"
    *
    * @example
    * // If the object does not have a name property, but its constructor does
-   * const callable = new Callable();
-   * callable.object = new (class SomeCallable {});
-   * console.log(Object.prototype.toString.call(callable));
+   * const callable = new Callable()
+   * callable.object = new (class SomeCallable {})
+   * console.log(Object.prototype.toString.call(callable))
    * // expected output: "[object SomeCallable]"
    *
    * @example
    * // If neither the object nor its constructor have a name property
-   * const callable = new Callable();
-   * console.log(Object.prototype.toString.call(callable));
+   * const callable = new Callable()
+   * console.log(Object.prototype.toString.call(callable))
    * // expected output: "[object Callable]"
    */
   get [Symbol.toStringTag]() {
-    return this.object?.name ?? this.object?.constructor.name ?? "Callable";
+    return this.object?.name ?? this.object?.constructor.name ?? 'Callable'
   }
 
   /**
@@ -480,7 +481,7 @@ export class Callable {
    * callable[Callable.kHandler] === model // true
    */
   static get kHandler() {
-    return Symbol.for("callable.handler");
+    return Symbol.for('callable.handler')
   }
 
   /**
@@ -499,6 +500,6 @@ export class Callable {
    * callable[Callable.kFunction] === sayName // true
    */
   static get kFunction() {
-    return Symbol.for("callable.function");
+    return Symbol.for('callable.function')
   }
 }

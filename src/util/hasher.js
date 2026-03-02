@@ -14,7 +14,7 @@ export class Hasher {
    */
   constructor(...values) {
     this.reset()
-    values.forEach((value) => this.add(value));
+    values.forEach((value) => this.add(value))
   }
 
   /**
@@ -28,94 +28,94 @@ export class Hasher {
       if (!value)
         return this.add(String(value))
 
-      if (!["string", "number", "object"].includes(typeof value))
-        return this.add(String(value));
+      if (!['string', 'number', 'object'].includes(typeof value))
+        return this.add(String(value))
 
       if (Hasher.hasSymbols(value))
-        return this.add(value.map(entry => String(entry)))
+        return this.add(value.map((entry) => String(entry)))
 
-      if (typeof value === "string") {
+      if (typeof value === 'string') {
         [...value].forEach((c) => (
           this.#hash = (this.#hash << 5) + this.#hash + c.charCodeAt(0)
-          ));
-        }
-        else if (typeof value === "number") {
-          this.#hash = (this.#hash << 5) + this.#hash + value;
-        }
-        else if (typeof value === "object") {
-          return this.add(...Hasher.toKeys(value));
-        }
-      });
+        ))
+      }
+      else if (typeof value === 'number') {
+        this.#hash = (this.#hash << 5) + this.#hash + value
+      }
+      else if (typeof value === 'object') {
+        return this.add(...Hasher.toKeys(value))
+      }
+    })
 
-      return this.hash;
-    }
-
-    /**
-     * The function returns the absolute value of a hash code as a base-36 string.
-     *
-     * @returns The method is returning the absolute value of the private property
-     * `hash` converted to a base-36 string.
-     */
-    get hash() {
-      return Math.abs(this.#hash).toString(36);
-    }
-
-    /**
-    * The function "reset" sets the value of the private property "hash" to 5381.
-    */
-    reset() {
-      this.#hash = this.#seed;
-    }
-
-    /**
-     * The function "toKeys" converts the keys of an object into an array of strings.
-     * @param object - The `object` parameter is the object for which we want to get
-     * the keys.
-     * @returns an array of strings that represent the keys of the input object.
-     */
-    static toKeys(object) {
-      if (!object || typeof object !== "object") return "";
-
-      return Reflect.ownKeys(object).map((s) => String(s));
-    }
-
-    /**
-     * The function "hasSymbols" checks if an array contains any symbols and
-     * returns true if it does, false otherwise.
-     *
-     * @param array - The parameter "array" is expected to be an array.
-     * @returns a boolean value. It returns true if the input array contains at
-     * least one symbol, and false otherwise.
-     */
-    static hasSymbols(array) {
-      if (!Array.isArray(array))
-        return false
-
-      return (array
-        .map(value => (typeof value))
-        .some(value => value === 'symbol')
-      )
-    }
-
-    /**
-     * The above function returns the value of the private variable "seed".
-     *
-     * @returns The seed value of the object.
-     */
-    get seed() {
-      return this.#seed
-    }
-
-    /**
-     * The above function sets the value of the seed property.
-     *
-     * @param newValue - newValue is the new value that will be assigned to the seed
-     * property.
-     */
-    set seed(newValue) {
-      this.#seed = newValue
-    }
-
-    #hash = 0
-    #seed = 5381
+    return this.hash
   }
+
+  /**
+   * The function returns the absolute value of a hash code as a base-36 string.
+   *
+   * @returns The method is returning the absolute value of the private property
+   * `hash` converted to a base-36 string.
+   */
+  get hash() {
+    return Math.abs(this.#hash).toString(36)
+  }
+
+  /**
+  * The function "reset" sets the value of the private property "hash" to 5381.
+  */
+  reset() {
+    this.#hash = this.#seed
+  }
+
+  /**
+   * The function "toKeys" converts the keys of an object into an array of strings.
+   * @param object - The `object` parameter is the object for which we want to get
+   * the keys.
+   * @returns an array of strings that represent the keys of the input object.
+   */
+  static toKeys(object) {
+    if (!object || typeof object !== 'object') return ''
+
+    return Reflect.ownKeys(object).map((s) => String(s))
+  }
+
+  /**
+   * The function "hasSymbols" checks if an array contains any symbols and
+   * returns true if it does, false otherwise.
+   *
+   * @param array - The parameter "array" is expected to be an array.
+   * @returns a boolean value. It returns true if the input array contains at
+   * least one symbol, and false otherwise.
+   */
+  static hasSymbols(array) {
+    if (!Array.isArray(array))
+      return false
+
+    return (array
+      .map((value) => (typeof value))
+      .some((value) => value === 'symbol')
+    )
+  }
+
+  /**
+   * The above function returns the value of the private variable "seed".
+   *
+   * @returns The seed value of the object.
+   */
+  get seed() {
+    return this.#seed
+  }
+
+  /**
+   * The above function sets the value of the seed property.
+   *
+   * @param newValue - newValue is the new value that will be assigned to the seed
+   * property.
+   */
+  set seed(newValue) {
+    this.#seed = newValue
+  }
+
+  #hash = 0;
+  #seed = 5381;
+}

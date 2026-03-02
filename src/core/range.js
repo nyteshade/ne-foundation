@@ -8,18 +8,18 @@
  *
  * @example
 * // Create an inclusive range from 1 to 5 with a step of 1
-* const range = new Range(1, 5);
+* const range = new Range(1, 5)
 * for (const value of range) {
-*   console.log(value); // Logs 1, 2, 3, 4, 5
+*   console.log(value) // Logs 1, 2, 3, 4, 5
 * }
 *
 * @example
 * // Create an exclusive range from 10 to 20 with a step of 2
 * const exclusiveRange = new Range({
 *   start: 10, end: 20, step: 2, inclusive: false
-* });
+* })
 * for (const value of exclusiveRange) {
-*   console.log(value); // Logs 10, 12, 14, 16, 18
+*   console.log(value) // Logs 10, 12, 14, 16, 18
 * }
 */
 export class Range {
@@ -88,15 +88,16 @@ export class Range {
     */
    constructor(start, end, step, inclusive = true) {
      if (typeof start === 'object') {
-       this.start = start.start;
-       this.end = start.end;
-       this.step = start.step !== undefined ? start.step : 1;
-       this.inclusive = start?.inclusive ?? true;
-     } else {
-       this.start = start;
-       this.end = end;
-       this.step = step !== undefined ? step : 1;
-       this.inclusive = inclusive ?? true;
+       this.start = start.start
+       this.end = start.end
+       this.step = start.step !== undefined ? start.step : 1
+       this.inclusive = start?.inclusive ?? true
+     }
+     else {
+       this.start = start
+       this.end = end
+       this.step = step !== undefined ? step : 1
+       this.inclusive = inclusive ?? true
      }
    }
 
@@ -109,7 +110,7 @@ export class Range {
     * starting value function.
     */
    get start() {
-     return typeof this.#start === 'function' ? this.#start() : this.#start;
+     return typeof this.#start === 'function' ? this.#start() : this.#start
    }
 
    /**
@@ -122,7 +123,7 @@ export class Range {
     * that returns the starting value.
     */
    set start(value) {
-     this.#start = value;
+     this.#start = value
    }
 
    /**
@@ -134,7 +135,7 @@ export class Range {
     * value function.
     */
    get end() {
-     return typeof this.#end === 'function' ? this.#end() : this.#end;
+     return typeof this.#end === 'function' ? this.#end() : this.#end
    }
 
    /**
@@ -147,7 +148,7 @@ export class Range {
     * that returns the ending value.
     */
    set end(value) {
-     this.#end = value;
+     this.#end = value
    }
 
    /**
@@ -160,7 +161,7 @@ export class Range {
     * value function.
     */
    get step() {
-     return typeof this.#step === 'function' ? this.#step() : this.#step;
+     return typeof this.#step === 'function' ? this.#step() : this.#step
    }
 
    /**
@@ -176,11 +177,12 @@ export class Range {
     */
    set step(value) {
      if (typeof value === 'function' || (!isNaN(value) && value !== 0)) {
-       this.#step = value;
-     } else {
+       this.#step = value
+     }
+     else {
        throw new Error(
          'Step must be a non-zero number or a function that returns a non-zero number.'
-       );
+       )
      }
    }
 
@@ -196,14 +198,15 @@ export class Range {
     * discrete steps within the range.
     */
    get size() {
-     const start = this.start;
-     const end = this.end;
-     const step = this.step;
+     const start = this.start
+     const end = this.end
+     const step = this.step
 
      if (end !== undefined) {
-       return Math.floor((end - start) / step) + 1;
-     } else {
-       return Math.round(start / step);
+       return Math.floor((end - start) / step) + 1
+     }
+     else {
+       return Math.round(start / step)
      }
    }
 
@@ -220,17 +223,18 @@ export class Range {
     * range. It receives the current value as an argument.
     */
    each(callback) {
-     const start = this.start;
-     const end = this.inclusive ? this.end : this.end - (this.step/Math.abs(this.step));
-     const step = this.step;
+     const start = this.start
+     const end = this.inclusive ? this.end : this.end - (this.step/Math.abs(this.step))
+     const step = this.step
 
      if (start < end) {
        for (let i = start; i <= end; i += step) {
-         callback(i);
+         callback(i)
        }
-     } else if (start > end) {
+     }
+     else if (start > end) {
        for (let i = start; i >= end; i -= Math.abs(step)) {
-         callback(i);
+         callback(i)
        }
      }
    }
@@ -248,17 +252,18 @@ export class Range {
     * otherwise.
     */
    includes(val) {
-     const start = this.start;
-     const end = this.inclusive ? this.end : this.end - (this.step / Math.abs(this.step));
-     const step = this.step;
+     const start = this.start
+     const end = this.inclusive ? this.end : this.end - (this.step / Math.abs(this.step))
+     const step = this.step
 
      if (isNaN(end)) {
-       return start === val;
-     } else if (!isNaN(end) && val <= end && val >= start) {
-       return (val - start) % step === 0;
+       return start === val
+     }
+     else if (!isNaN(end) && val <= end && val >= start) {
+       return (val - start) % step === 0
      }
 
-     return false;
+     return false
    }
 
    /**
@@ -272,17 +277,18 @@ export class Range {
     * @yields {number} The next value in the range.
     */
    *[Symbol.iterator]() {
-     const start = this.start;
-     const end = this.inclusive ? this.end : this.end - (this.step/Math.abs(this.step));
-     const step = this.step;
+     const start = this.start
+     const end = this.inclusive ? this.end : this.end - (this.step/Math.abs(this.step))
+     const step = this.step
 
      if (start < end) {
        for (let value = start; value <= end; value += step) {
-         yield value;
+         yield value
        }
-     } else {
+     }
+     else {
        for (let value = start; value >= end; value -= Math.abs(step)) {
-         yield value;
+         yield value
        }
      }
    }

@@ -14,55 +14,55 @@ export class Tags {
    *
    * @example
    * // Usage with template literal:
-   * const trim = trimLeading();
+   * const trim = trimLeading()
    * const result = trim`
    *   Line 1
    *   Line 2
    *   Line 3
-   * `;
+   * `
    * // result is "Line 1\n Line 2\nLine 3"
    */
   static trimLeading(applyIndent = 0, metadata = undefined) {
     return function lineNumbersTemplateFn(strings, ...args) {
-      const woven = [];
-      const meta = metadata ?? {};
+      const woven = []
+      const meta = metadata ?? {}
 
       for (let [index, string] of strings.entries()) {
-        woven.push(string);
+        woven.push(string)
         if (index < args.length) {
-          woven.push(String(args[index]));
+          woven.push(String(args[index]))
         }
       }
 
-      const output = [];
-      const lines = woven.join('').split('\n');
+      const output = []
+      const lines = woven.join('').split('\n')
 
-      let lineIndent = 0;
-      let minIndent = 0;
+      let lineIndent = 0
+      let minIndent = 0
       let addIndent = Number(applyIndent)
         ? ' '.repeat(Number(applyIndent))
-        : '';
+        : ''
 
       for (const [index, line] of lines.entries()) {
         if (index === 0 || index === lines.length - 1) {
           if (!line.trim()) {
-            continue;
+            continue
           }
         }
 
-        lineIndent = /^(\s+)/.exec(line)?.[1]?.length ?? 0;
+        lineIndent = /^(\s+)/.exec(line)?.[1]?.length ?? 0
 
         if (minIndent === 0 && lineIndent > 0) {
-          minIndent = lineIndent;
+          minIndent = lineIndent
         }
 
-        minIndent = Math.min(lineIndent, minIndent);
-        output.push(`${addIndent}${line.substring(minIndent)}`);
+        minIndent = Math.min(lineIndent, minIndent)
+        output.push(`${addIndent}${line.substring(minIndent)}`)
       }
 
       Object.assign(meta, { minIndent, output })
 
-      return output.join('\n');
+      return output.join('\n')
     }
   }
 }
