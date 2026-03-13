@@ -1,0 +1,133 @@
+#!/usr/bin/env node
+
+import esbuild from 'esbuild'
+import fs from 'fs'
+
+const ext = fs.existsSync('src/index.ts') ? '.ts' : '.js'
+const packageJSON = (
+  JSON.parse(fs
+    .readFileSync('package.json')
+    .toString()
+  )
+)
+
+const { iifeGlobalName, version } = packageJSON
+const bundleName = `${packageJSON.name}.bundle.${version}.js`
+const outfile = `dist/${bundleName}`
+const iifeDefaultName = sanitizeForVariableName(packageJSON.name)
+
+// Browser IIFE bundle
+await esbuild
+  .build({
+    entryPoints: [`src/index${ext}`],
+    bundle: true,
+    mainFields: ["browser"],
+    sourcemap: true,
+    minify: true,
+    splitting: false,
+    globalName: iifeGlobalName && iifeGlobalName !== null
+      ? iifeGlobalName
+      : iifeDefaultName,
+    platform: "browser",
+    outfile,
+    target: ['esnext'],
+  })
+  .catch((e) => {
+    console.error(e)
+    process.exit(1)
+  })
+
+try {
+  let packageJSONString
+
+  packageJSON.browser = outfile
+  packageJSONString = JSON.stringify(packageJSON, null, 2)
+
+  fs.writeFileSync('package.json', packageJSONString)
+}
+catch (error) {
+  console.error(error)
+
+  console.warn('Unable to update package.json, the browser property may be incorrect')
+  console.warn(`It should read ${outfile}`)
+}
+
+// Collect external dependencies (don't bundle them into CJS output)
+const external = [
+  ...Object.keys(packageJSON.dependencies || {}),
+  ...Object.keys(packageJSON.peerDependencies || {}),
+]
+
+// ESM bundle for CDN / await import()
+await esbuild
+  .build({
+    entryPoints: [`src/index${ext}`],
+    bundle: true,
+    format: 'esm',
+    platform: 'browser',
+    target: ['esnext'],
+    minify: true,
+    sourcemap: true,
+    outfile: 'dist/esm/foundation.mjs',
+  })
+  .catch((e) => {
+    console.error(e)
+    process.exit(1)
+  })
+
+// CJS builds for each entry point
+const cjsEntryPoints = [
+  { entry: `src/index${ext}`, outfile: 'dist/cjs/index.cjs' },
+]
+
+await Promise.all(cjsEntryPoints.map(({ entry, outfile }) =>
+  esbuild.build({
+    entryPoints: [entry],
+    bundle: true,
+    format: 'cjs',
+    platform: 'node',
+    target: ['node22'],
+    sourcemap: true,
+    outfile,
+    external,
+  })
+)).catch((e) => {
+  console.error(e)
+  process.exit(1)
+})
+
+console.log('Built browser bundle:', outfile)
+console.log('Built ESM bundle: dist/esm/foundation.mjs')
+console.log('Built CJS entry points:', cjsEntryPoints.map(e => e.outfile).join(', '))
+
+/**
+ * Sanitizes a string to make it safe to use as a JavaScript variable name.
+ * @param str The string to be sanitized.
+ * @returns A sanitized string safe to use as a variable name.
+ */
+function sanitizeForVariableName(str) {
+  const validChars = /[a-zA-Z0-9_$]/g;
+  const wordBoundary = /[^a-zA-Z0-9$]+(.)/g;
+
+  let sanitized = str.replace(wordBoundary, (match, char) => char.toUpperCase());
+  sanitized = sanitized.match(validChars)?.join('') || '_';
+
+  if (/^\d/.test(sanitized)) {
+    sanitized = '_' + sanitized;
+  } else if (/^[A-Z]/.test(sanitized)) {
+    sanitized = sanitized[0].toLowerCase() + sanitized.substring(1);
+  }
+
+  const reservedKeywords = [
+    'break', 'case', 'catch', 'class', 'const', 'continue', 'debugger', 'default',
+    'delete', 'do', 'else', 'export', 'extends', 'finally', 'for', 'function',
+    'if', 'import', 'in', 'instanceof', 'new', 'return', 'super', 'switch',
+    'this', 'throw', 'try', 'typeof', 'var', 'void', 'while', 'with', 'yield',
+  ];
+
+  if (reservedKeywords.includes(sanitized)) {
+    sanitized = '_' + sanitized;
+  }
+
+  return sanitized;
+}

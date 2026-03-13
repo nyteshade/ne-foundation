@@ -1,14 +1,13 @@
 #!/usr/bin/env node
 
-const { rimraf } = await import('rimraf')
+import fs from 'fs'
+import path from 'path'
 
-await rimraf(
-  './dist/**/*',
-  { glob: true, preserveRoot: true }
-)
+const dist = path.resolve('dist')
 
-await rimraf(
-  './docs/**/*',
-  { glob: true, preserveRoot: true }
-)
-
+if (fs.existsSync(dist)) {
+  for (const entry of fs.readdirSync(dist)) {
+    if (entry === '.gitkeep') continue
+    fs.rmSync(path.join(dist, entry), { recursive: true, force: true })
+  }
+}

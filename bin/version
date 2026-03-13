@@ -1,0 +1,100 @@
+#!/usr/bin/env node
+
+const fs = await import('fs')
+const path = await import('path')
+const { SemVer } = await import('./semver.mjs')
+
+async function main(interpreter, script, args, SemVer) {
+  const packageJSON = (
+    JSON.parse(fs
+      .readFileSync('./package.json')
+      .toString()
+    )
+  )
+
+  const version = new SemVer(packageJSON.version)
+  let [versionPart, versionValue] = args
+  let numericPart = (part) => ['major', 'minor', 'patch'].includes(part)
+  let textualPart = (part) => ['prerelease', 'metadata'].includes(part)
+
+  if (versionValue === 'bump' && numericPart(versionPart)) {
+    versionValue = Number(version[versionPart] + 1)
+  }
+
+  versionPart = String(versionPart).toLowerCase()
+  versionValue = textualPart(versionPart)
+    ? String(versionValue).toLowerCase()
+    : Number(versionValue)
+
+  const handleBrowserVersion = (newVersion) => {
+    if (Reflect.has(packageJSON, "browser")) {
+      const browserPath = packageJSON.browser
+      let browserVer = SemVer.from(browserPath)
+
+      let newPath = [
+        browserPath.slice(0, browserVer.range[0]),
+        newVersion.get(),
+        browserPath.slice(browserVer.range[1]),
+      ].join('')
+
+      console.log(`  "browser": ${browserPath}`)
+      console.log(`          -> ${newPath}`)
+
+      packageJSON.browser = newPath
+    }
+  }
+
+  if (
+    (typeof versionPart === 'string' && numericPart(versionPart)) &&
+    typeof versionValue === 'number'
+  ) {
+    const oldVersion = version.get()
+    const newVersion = version.set(versionValue, versionPart)
+
+    console.log(`New versions`)
+    console.log(`  "version": ${oldVersion} -> ${newVersion}`)
+
+    packageJSON.version = newVersion.get()
+    handleBrowserVersion(newVersion)
+
+    fs.writeFileSync('./package.json', JSON.stringify(packageJSON, null, 2))
+  }
+  else if (
+    (typeof versionPart === 'string' && textualPart(versionPart)) &&
+    typeof versionValue === 'string'
+  ) {
+    const oldVersion = version.get()
+    const newVersion = version.set(versionValue, versionPart).get()
+
+    console.log(`New versions`)
+    console.log(`  "version": ${oldVersion} -> ${newVersion}`)
+
+    packageJSON.version = newVersion.get()
+    handleBrowserVersion(newVersion)
+
+    fs.writeFileSync('./package.json', JSON.stringify(packageJSON, null, 2))
+  }
+  else {
+    console.log([
+      `Usage: ${script} <major|minor|patch|prerelease|metadata> <newvalue>`,
+      `where:`,
+      `  major|minor|patch|prerelease|metadata - refers to part of version`,
+      `  newvalue - refers to the new value for that part of the version`,
+      ``,
+      `  note: if "newvalue" is the word "bump", then it increases the`,
+      `        specified portion of the version accordingly. This only works`,
+      `        for major, minor and patch version parts`,
+      ``,
+      `Current version: ${packageJSON.version}`,
+    ].join('\n'))
+  }
+
+  process.exit(0)
+}
+
+main(
+  process.argv[0],
+  path.basename(process.argv[1]),
+  process.argv.slice(2),
+  SemVer
+)

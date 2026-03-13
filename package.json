@@ -1,43 +1,46 @@
 {
   "author": "Brielle Harrison <nyteshade at gmail.com>",
+  "browser": "dist/@nejs/foundation.bundle.2.3.2.js",
   "description": "Foundation classes built upon @nejs/basic-extensions",
+  "dependencies": {
+    "@nejs/basic-extensions": "^2.21.0",
+    "@nejs/extension": "^2.22.0",
+    "zod": "^3.22.5"
+  },
   "devDependencies": {
-    "jsdoc": "^4.0.4",
-    "rimraf": "^6.0.1",
-    "rolldown": "^1.0.0-beta.8",
+    "@nejs/jsdoc-react-theme": "*",
+    "esbuild": "^0.25.3",
     "vitest": "^3.1.2"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "exports": {
     ".": {
-      "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js"
+      "browser": "./dist/esm/foundation.mjs",
+      "import": "./src/index.js",
+      "require": "./dist/cjs/index.cjs"
     }
   },
+  "iifeGlobalName": "",
   "keywords": [
     "javascript",
     "browser",
     "localStorage"
   ],
   "license": "MIT",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.cjs",
+  "module": "src/index.js",
   "name": "@nejs/foundation",
   "scripts": {
-    "build": "bin/clean && bin/build",
+    "build": "bin/clean && bin/version patch bump && bin/esbuild",
+    "distribute": "bin/clean && bin/version minor bump && bin/esbuild && npm publish --access public",
+    "browser": "bin/esbuild",
+    "docs": "npx jsdoc-react src -o docs",
     "clean": "bin/clean",
-    "jsdoc": "jsdoc -c jsdoc-config.json -p -a all -R README.md",
-    "module": "bin/build",
+    "prepack": "bin/clean && bin/esbuild",
     "test": "vitest"
   },
   "type": "module",
-  "version": "2.3.0",
-  "dependencies": {
-    "@nejs/basic-extensions": "^2.21.0",
-    "@nejs/extension": "^2.22.0",
-    "zod": "^3.22.5"
-  },
-  "browser": "dist/@nejs/foundation.bundle.2.3.0.js"
+  "version": "2.3.2"
 }
